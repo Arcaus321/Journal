@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,16 +47,46 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LogIn.cs">
+    <Compile Include="AdminUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AdminUC.Designer.cs">
+      <DependentUpon>AdminUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EntryUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EntryUC.Designer.cs">
+      <DependentUpon>EntryUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LogIn.Designer.cs">
-      <DependentUpon>LogIn.cs</DependentUpon>
+    <Compile Include="Form.Designer.cs">
+      <DependentUpon>Form.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="LogIn.resx">
-      <DependentUpon>LogIn.cs</DependentUpon>
+    <Compile Include="RegistrationUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RegistrationUC.Designer.cs">
+      <DependentUpon>RegistrationUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudentUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StudentUC.Designer.cs">
+      <DependentUpon>StudentUC.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AdminUC.resx">
+      <DependentUpon>AdminUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EntryUC.resx">
+      <DependentUpon>EntryUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form.resx">
+      <DependentUpon>Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -66,6 +97,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RegistrationUC.resx">
+      <DependentUpon>RegistrationUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentUC.resx">
+      <DependentUpon>StudentUC.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
