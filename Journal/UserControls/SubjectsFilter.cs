@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Journal
 {
-    public partial class AdminUC : UserControl
+    public partial class SubjectsFilter : UserControl
     {
-        public AdminUC()
+        public SubjectsFilter()
         {
             InitializeComponent();
         }

@@ -10,17 +10,18 @@ using System.Windows.Forms;
 
 namespace Journal
 {
-    public partial class form1 : System.Windows.Forms.Form
+    public partial class RegistrationUC : UserControl
     {
-        public form1()
+        public RegistrationUC()
         {
             InitializeComponent();
         }
 
-        private void LogIn_Load(object sender, EventArgs e)
+        private void bCancel_Click(object sender, EventArgs e)
         {
-            Navigation.OpenEntryUC(this);
-            //this.Text = "Журнал - Вход";
+            Navigation.OpenEntryUC(this.ParentForm);
+            this.Dispose();
+            //form1.ActiveForm.Text = "Журнал - Вход";
             //this.Controls.Clear();
             //this.Controls.Add(new EntryUC { Dock = DockStyle.Fill });
         }

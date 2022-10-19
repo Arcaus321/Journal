@@ -47,16 +47,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminUC.cs">
+    <Compile Include="UserControls\AccountFilter.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AdminUC.Designer.cs">
+    <Compile Include="UserControls\AccountFilter.Designer.cs">
+      <DependentUpon>AccountFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AdminUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\AdminUC.Designer.cs">
       <DependentUpon>AdminUC.cs</DependentUpon>
     </Compile>
-    <Compile Include="EntryUC.cs">
+    <Compile Include="UserControls\EntryUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="EntryUC.Designer.cs">
+    <Compile Include="UserControls\EntryUC.Designer.cs">
       <DependentUpon>EntryUC.cs</DependentUpon>
     </Compile>
     <Compile Include="Form.cs">
@@ -65,24 +71,46 @@
     <Compile Include="Form.Designer.cs">
       <DependentUpon>Form.cs</DependentUpon>
     </Compile>
+    <Compile Include="Navigation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegistrationUC.cs">
+    <Compile Include="UserControls\RegistrationUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="RegistrationUC.Designer.cs">
+    <Compile Include="UserControls\RegistrationUC.Designer.cs">
       <DependentUpon>RegistrationUC.cs</DependentUpon>
     </Compile>
-    <Compile Include="StudentUC.cs">
+    <Compile Include="UserControls\StudentsFilter.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="StudentUC.Designer.cs">
+    <Compile Include="UserControls\StudentsFilter.Designer.cs">
+      <DependentUpon>StudentsFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\StudentUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\StudentUC.Designer.cs">
       <DependentUpon>StudentUC.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AdminUC.resx">
+    <Compile Include="UserControls\SubjectsFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\SubjectsFilter.Designer.cs">
+      <DependentUpon>SubjectsFilter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TeacherUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\TeacherUC.Designer.cs">
+      <DependentUpon>TeacherUC.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="UserControls\AccountFilter.resx">
+      <DependentUpon>AccountFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\AdminUC.resx">
       <DependentUpon>AdminUC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EntryUC.resx">
+    <EmbeddedResource Include="UserControls\EntryUC.resx">
       <DependentUpon>EntryUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form.resx">
@@ -97,11 +125,20 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="RegistrationUC.resx">
+    <EmbeddedResource Include="UserControls\RegistrationUC.resx">
       <DependentUpon>RegistrationUC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StudentUC.resx">
+    <EmbeddedResource Include="UserControls\StudentsFilter.resx">
+      <DependentUpon>StudentsFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\StudentUC.resx">
       <DependentUpon>StudentUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\SubjectsFilter.resx">
+      <DependentUpon>SubjectsFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\TeacherUC.resx">
+      <DependentUpon>TeacherUC.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

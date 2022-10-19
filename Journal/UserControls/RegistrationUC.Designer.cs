@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.bCancel = new System.Windows.Forms.Button();
+            this.bRegistration = new System.Windows.Forms.Button();
             this.labelGroup = new System.Windows.Forms.Label();
             this.cbGroup = new System.Windows.Forms.ComboBox();
             this.tbRepeatPassword = new System.Windows.Forms.TextBox();
@@ -45,16 +45,16 @@
             this.labelFirstName = new System.Windows.Forms.Label();
             this.tbSecondName = new System.Windows.Forms.TextBox();
             this.labelSecondName = new System.Windows.Forms.Label();
-            this.tbEmail = new System.Windows.Forms.TextBox();
             this.labelEmail = new System.Windows.Forms.Label();
+            this.tbEmail = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
             this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.bCancel);
+            this.groupBox1.Controls.Add(this.bRegistration);
             this.groupBox1.Controls.Add(this.labelGroup);
             this.groupBox1.Controls.Add(this.cbGroup);
             this.groupBox1.Controls.Add(this.tbRepeatPassword);
@@ -79,27 +79,28 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Регистрация";
             // 
-            // button2
+            // bCancel
             // 
-            this.button2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.Location = new System.Drawing.Point(132, 359);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(94, 37);
-            this.button2.TabIndex = 17;
-            this.button2.Text = "Отмена";
-            this.button2.UseVisualStyleBackColor = true;
+            this.bCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.bCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.bCancel.Location = new System.Drawing.Point(132, 359);
+            this.bCancel.Name = "bCancel";
+            this.bCancel.Size = new System.Drawing.Size(94, 37);
+            this.bCancel.TabIndex = 17;
+            this.bCancel.Text = "Отмена";
+            this.bCancel.UseVisualStyleBackColor = true;
+            this.bCancel.Click += new System.EventHandler(this.bCancel_Click);
             // 
-            // button1
+            // bRegistration
             // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(20, 359);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 37);
-            this.button1.TabIndex = 16;
-            this.button1.Text = "Регистрация";
-            this.button1.UseVisualStyleBackColor = true;
+            this.bRegistration.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.bRegistration.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.bRegistration.Location = new System.Drawing.Point(20, 359);
+            this.bRegistration.Name = "bRegistration";
+            this.bRegistration.Size = new System.Drawing.Size(94, 37);
+            this.bRegistration.TabIndex = 16;
+            this.bRegistration.Text = "Регистрация";
+            this.bRegistration.UseVisualStyleBackColor = true;
             // 
             // labelGroup
             // 
@@ -242,15 +243,6 @@
             this.labelSecondName.TabIndex = 2;
             this.labelSecondName.Text = "Фамилия";
             // 
-            // tbEmail
-            // 
-            this.tbEmail.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.tbEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbEmail.Location = new System.Drawing.Point(20, 44);
-            this.tbEmail.Name = "tbEmail";
-            this.tbEmail.Size = new System.Drawing.Size(206, 20);
-            this.tbEmail.TabIndex = 1;
-            // 
             // labelEmail
             // 
             this.labelEmail.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -261,6 +253,15 @@
             this.labelEmail.Size = new System.Drawing.Size(37, 13);
             this.labelEmail.TabIndex = 0;
             this.labelEmail.Text = "Почта";
+            // 
+            // tbEmail
+            // 
+            this.tbEmail.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.tbEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbEmail.Location = new System.Drawing.Point(20, 44);
+            this.tbEmail.Name = "tbEmail";
+            this.tbEmail.Size = new System.Drawing.Size(206, 20);
+            this.tbEmail.TabIndex = 1;
             // 
             // RegistrationUC
             // 
@@ -278,8 +279,8 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button bCancel;
+        private System.Windows.Forms.Button bRegistration;
         private System.Windows.Forms.Label labelGroup;
         private System.Windows.Forms.ComboBox cbGroup;
         private System.Windows.Forms.TextBox tbRepeatPassword;
@@ -294,7 +295,7 @@
         private System.Windows.Forms.Label labelFirstName;
         private System.Windows.Forms.TextBox tbSecondName;
         private System.Windows.Forms.Label labelSecondName;
-        private System.Windows.Forms.TextBox tbEmail;
         private System.Windows.Forms.Label labelEmail;
+        private System.Windows.Forms.TextBox tbEmail;
     }
 }
