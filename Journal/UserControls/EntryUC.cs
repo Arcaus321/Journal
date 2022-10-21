@@ -32,7 +32,7 @@ namespace Journal
             form1.ActiveForm.FormBorderStyle = FormBorderStyle.Sizable;
             form1.ActiveForm.MaximizeBox = true;
             this.Controls.Clear();
-            Controls.Add(new StudentUC { Dock = DockStyle.Fill });
+            Controls.Add(new AdminUC { Dock = DockStyle.Fill });
         }
     }
 }

@@ -22,5 +22,10 @@ namespace Journal
             form.Controls.Clear();
             form.Controls.Add(new RegistrationUC { Dock = DockStyle.Fill });
         }
+
+        public static void OpenUC(Form form)
+        {
+            Sql.ExecuteSqlQueryAsEnumerable("SELECT UserRole, FROM Users WHERE Login = '' AND Password = ''");
+        }
     }
 }

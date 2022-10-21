@@ -24,10 +24,12 @@ namespace Journal
                 case 0:
                     panel1.Controls.Clear();
                     panel1.Controls.Add(new AccountFilter() { Dock = DockStyle.Fill});
+                    dataGridView1.DataSource = Sql.ExecuteSqlQueryAsEnumerable("Select * From Users")?.CopyToDataTable();
                     break;
                 case 4:
                     panel1.Controls.Clear();
                     panel1.Controls.Add(new StudentsFilter() { Dock = DockStyle.Fill });
+                    dataGridView1.DataSource = null;
                     break;
                 case 5:
                     panel1.Controls.Clear();
