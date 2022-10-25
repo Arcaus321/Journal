@@ -28,11 +28,26 @@ namespace Journal
 
         private void bLogIn_Click(object sender, EventArgs e)
         {
-            form1.ActiveForm.Text = "Журнал - Панель админа";
-            form1.ActiveForm.FormBorderStyle = FormBorderStyle.Sizable;
-            form1.ActiveForm.MaximizeBox = true;
-            this.Controls.Clear();
-            Controls.Add(new AdminUC { Dock = DockStyle.Fill });
+            string query = $"SELECT login, UserRole FROM Users WHERE(Login = '{textBox2.Text}' OR Login = '{textBox2.Text}') AND Password = '{textBox1.Text}'";
+            var responce = WorkWithData.ExecuteSqlQueryAsEnumerable(query);
+            if(responce.Count() == 0)
+            {
+                MessageBox.Show("Неверное имя аккаунта или пароль");
+                return;
+            }
+
+            switch (responce.ToArray()[0].ItemArray[1])
+            {
+                case "4":
+                    Navigation.OpenAdminUC(this.ParentForm);
+                    break;
+                case "3":
+                    Navigation.OpenTeacherUC(this.ParentForm);
+                    break;
+                case "2":
+                    Navigation.OpenStudentUC(this.ParentForm);
+                    break;
+            }
         }
     }
 }

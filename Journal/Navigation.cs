@@ -23,9 +23,31 @@ namespace Journal
             form.Controls.Add(new RegistrationUC { Dock = DockStyle.Fill });
         }
 
-        public static void OpenUC(Form form)
+        public static void OpenAdminUC(Form form)
         {
-            WorkWithData.ExecuteSqlQueryAsEnumerable("SELECT UserRole, FROM Users WHERE Login = '' AND Password = ''");
+            form.Text = "Журнал - Панель админа";
+            form.FormBorderStyle = FormBorderStyle.Sizable;
+            form.MaximizeBox = true;
+            form.Controls.Clear();
+            form.Controls.Add(new AdminUC { Dock = DockStyle.Fill }); 
+        }
+        
+        public static void OpenTeacherUC(Form form)
+        {
+            form.Text = "Журнал - Панель преподавателя";
+            form.FormBorderStyle = FormBorderStyle.Sizable;
+            form.MaximizeBox = true;
+            form.Controls.Clear();
+            form.Controls.Add(new TeacherUC { Dock = DockStyle.Fill }); 
+        }
+        
+        public static void OpenStudentUC(Form form)
+        {
+            form.Text = "Журнал - Оценки";
+            form.FormBorderStyle = FormBorderStyle.Sizable;
+            form.MaximizeBox = true;
+            form.Controls.Clear();
+            form.Controls.Add(new AdminUC { Dock = DockStyle.Fill }); 
         }
     }
 }

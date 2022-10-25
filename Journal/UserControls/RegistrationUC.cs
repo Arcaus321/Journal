@@ -42,6 +42,9 @@ namespace Journal
             SQLiteCommand command = new SQLiteCommand(sqlQuery, connection);
             command.ExecuteNonQuery();
             connection.Close();
+
+            MessageBox.Show("Регистрация прошла успешно");
+            Navigation.OpenEntryUC(ParentForm);
         }
 
         private void RegistrationUC_Load(object sender, EventArgs e)
