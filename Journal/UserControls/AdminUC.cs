@@ -24,7 +24,7 @@ namespace Journal
                 case 0:
                     panel1.Controls.Clear();
                     panel1.Controls.Add(new AccountFilter() { Dock = DockStyle.Fill});
-                    dataGridView1.DataSource = Sql.ExecuteSqlQueryAsEnumerable("Select * From Users")?.CopyToDataTable();
+                    dataGridView1.DataSource = WorkWithData.ExecuteSqlQueryAsDataTable("Select * From Users");
                     break;
                 case 4:
                     panel1.Controls.Clear();

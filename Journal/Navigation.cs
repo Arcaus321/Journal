@@ -25,7 +25,7 @@ namespace Journal
 
         public static void OpenUC(Form form)
         {
-            Sql.ExecuteSqlQueryAsEnumerable("SELECT UserRole, FROM Users WHERE Login = '' AND Password = ''");
+            WorkWithData.ExecuteSqlQueryAsEnumerable("SELECT UserRole, FROM Users WHERE Login = '' AND Password = ''");
         }
     }
 }

@@ -22,8 +22,8 @@ namespace Journal
             List<string> roles = new List<string>() { "(Нет)" };
             List<string> groups = new List<string>() { "(Нет)" };
 
-            roles.AddRange(Sql.ExecuteSqlQueryAsEnumerable("SELECT RoleName FROM Roles").Select(x => x.Field<string>("RoleName")).ToList());
-            groups.AddRange(Sql.ExecuteSqlQueryAsEnumerable("SELECT GroupName FROM Groups").Select(x => x.Field<string>("GroupName")).ToList());
+            roles.AddRange(WorkWithData.ExecuteSqlQueryAsEnumerable("SELECT RoleName FROM Roles").Select(x => x.Field<string>("RoleName")).ToList());
+            groups.AddRange(WorkWithData.ExecuteSqlQueryAsEnumerable("SELECT GroupName FROM Groups").Select(x => x.Field<string>("GroupName")).ToList());
 
             cbAccessLevel.DataSource = roles;
             cbGroup.DataSource = groups;

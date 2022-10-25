@@ -45,8 +45,8 @@
             this.labelFirstName = new System.Windows.Forms.Label();
             this.tbSecondName = new System.Windows.Forms.TextBox();
             this.labelSecondName = new System.Windows.Forms.Label();
-            this.labelEmail = new System.Windows.Forms.Label();
             this.tbEmail = new System.Windows.Forms.TextBox();
+            this.labelEmail = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -101,6 +101,7 @@
             this.bRegistration.TabIndex = 16;
             this.bRegistration.Text = "Регистрация";
             this.bRegistration.UseVisualStyleBackColor = true;
+            this.bRegistration.Click += new System.EventHandler(this.bRegistration_Click);
             // 
             // labelGroup
             // 
@@ -243,6 +244,15 @@
             this.labelSecondName.TabIndex = 2;
             this.labelSecondName.Text = "Фамилия";
             // 
+            // tbEmail
+            // 
+            this.tbEmail.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.tbEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbEmail.Location = new System.Drawing.Point(20, 44);
+            this.tbEmail.Name = "tbEmail";
+            this.tbEmail.Size = new System.Drawing.Size(206, 20);
+            this.tbEmail.TabIndex = 1;
+            // 
             // labelEmail
             // 
             this.labelEmail.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -254,15 +264,6 @@
             this.labelEmail.TabIndex = 0;
             this.labelEmail.Text = "Почта";
             // 
-            // tbEmail
-            // 
-            this.tbEmail.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.tbEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbEmail.Location = new System.Drawing.Point(20, 44);
-            this.tbEmail.Name = "tbEmail";
-            this.tbEmail.Size = new System.Drawing.Size(206, 20);
-            this.tbEmail.TabIndex = 1;
-            // 
             // RegistrationUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -270,6 +271,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "RegistrationUC";
             this.Size = new System.Drawing.Size(272, 421);
+            this.Load += new System.EventHandler(this.RegistrationUC_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

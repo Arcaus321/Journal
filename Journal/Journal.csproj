@@ -67,7 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sql.cs" />
+    <Compile Include="WorkWithData.cs" />
     <Compile Include="UserControls\AdminPanelFilters\AccountFilter.cs">
       <SubType>UserControl</SubType>
     </Compile>
