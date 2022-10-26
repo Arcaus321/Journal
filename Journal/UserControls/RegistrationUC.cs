@@ -23,9 +23,6 @@ namespace Journal
         {
             Navigation.OpenEntryUC(this.ParentForm);
             this.Dispose();
-            //form1.ActiveForm.Text = "Журнал - Вход";
-            //this.Controls.Clear();
-            //this.Controls.Add(new EntryUC { Dock = DockStyle.Fill });
         }
 
         private void bRegistration_Click(object sender, EventArgs e)

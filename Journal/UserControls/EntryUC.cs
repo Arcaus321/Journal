@@ -21,14 +21,11 @@ namespace Journal
         {
             Navigation.OpenRegistrationUC(this.ParentForm);
             this.Dispose();
-            //form1.ActiveForm.Text = "Журнал - Регистрация нового пользователя";
-            //this.Controls.Clear();
-            //Controls.Add(new RegistrationUC { Dock = DockStyle.Fill });
         }
 
         private void bLogIn_Click(object sender, EventArgs e)
         {
-            string query = $"SELECT login, UserRole FROM Users WHERE(Login = '{textBox2.Text}' OR Login = '{textBox2.Text}') AND Password = '{textBox1.Text}'";
+            string query = $"SELECT login, UserRole FROM Users WHERE(Login = '{textBox2.Text}' OR Login = '{textBox2.Text}') AND Password = '{textBox1.Text}' AND isDelete = 0";
             var responce = WorkWithData.ExecuteSqlQueryAsEnumerable(query);
             if(responce.Count() == 0)
             {
