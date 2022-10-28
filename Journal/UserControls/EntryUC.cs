@@ -26,14 +26,16 @@ namespace Journal
         private void bLogIn_Click(object sender, EventArgs e)
         {
             string query = $"SELECT login, UserRole FROM Users WHERE(Login = '{textBox2.Text}' OR Login = '{textBox2.Text}') AND Password = '{textBox1.Text}' AND isDelete = 0";
-            var responce = WorkWithData.ExecuteSqlQueryAsEnumerable(query);
-            if(responce.Count() == 0)
+            var userData = WorkWithData.ExecuteSqlQueryAsEnumerable(query);
+            if(userData.Count() == 0)
             {
                 MessageBox.Show("Неверное имя аккаунта или пароль");
                 return;
             }
 
-            switch (responce.ToArray()[0].ItemArray[1])
+            var userRole = userData.ToArray()[0].ItemArray[1];
+
+            switch (userRole)
             {
                 case "4":
                     Navigation.OpenAdminUC(this.ParentForm);
@@ -43,6 +45,9 @@ namespace Journal
                     break;
                 case "2":
                     Navigation.OpenStudentUC(this.ParentForm);
+                    break;
+                default:
+                    MessageBox.Show("Нет доступа");
                     break;
             }
         }

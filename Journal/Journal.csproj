@@ -101,11 +101,11 @@
     <Compile Include="UserControls\RegistrationUC.Designer.cs">
       <DependentUpon>RegistrationUC.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\AdminPanelFilters\StudentsFilter.cs">
+    <Compile Include="UserControls\AdminPanelFilters\SubjectsFilter.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\AdminPanelFilters\StudentsFilter.Designer.cs">
-      <DependentUpon>StudentsFilter.cs</DependentUpon>
+    <Compile Include="UserControls\AdminPanelFilters\SubjectsFilter.Designer.cs">
+      <DependentUpon>SubjectsFilter.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\StudentUC.cs">
       <SubType>UserControl</SubType>
@@ -113,11 +113,11 @@
     <Compile Include="UserControls\StudentUC.Designer.cs">
       <DependentUpon>StudentUC.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\AdminPanelFilters\SubjectsFilter.cs">
+    <Compile Include="UserControls\AdminPanelFilters\StudentsFilter.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\AdminPanelFilters\SubjectsFilter.Designer.cs">
-      <DependentUpon>SubjectsFilter.cs</DependentUpon>
+    <Compile Include="UserControls\AdminPanelFilters\StudentsFilter.Designer.cs">
+      <DependentUpon>StudentsFilter.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TeacherUC.cs">
       <SubType>UserControl</SubType>
@@ -149,14 +149,14 @@
     <EmbeddedResource Include="UserControls\RegistrationUC.resx">
       <DependentUpon>RegistrationUC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\AdminPanelFilters\StudentsFilter.resx">
-      <DependentUpon>StudentsFilter.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\AdminPanelFilters\SubjectsFilter.resx">
+      <DependentUpon>SubjectsFilter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\StudentUC.resx">
       <DependentUpon>StudentUC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\AdminPanelFilters\SubjectsFilter.resx">
-      <DependentUpon>SubjectsFilter.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\AdminPanelFilters\StudentsFilter.resx">
+      <DependentUpon>StudentsFilter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\TeacherUC.resx">
       <DependentUpon>TeacherUC.cs</DependentUpon>

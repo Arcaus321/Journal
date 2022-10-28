@@ -28,5 +28,47 @@ namespace Journal
             cbAccessLevel.DataSource = roles;
             cbGroup.DataSource = groups;
         }
+
+        private void cbGroup_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            DataGridView grid = (DataGridView)ParentForm.Controls["AdminUC"].Controls["dataGridView1"];
+            grid.Rows.Clear();
+
+            DataTable table = WorkWithData.ExecuteSqlQueryAsDataTable($@"SELECT Users.Id, FirstName, LastName, MiddleName, Login, Password, Roles.RoleName , Groups.GroupName, Email, Users.isDelete
+                                                                                       FROM Users
+                                                                                       LEFT JOIN Groups ON Users.UserGroup = Groups.Id
+                                                                                       LEFT JOIN Roles ON Users.UserRole = Roles.Id
+                                                                                       WHERE Groups.GroupName = '{cbGroup.SelectedItem}'");
+
+            for (int i = 0; i < table.Rows.Count; i++)
+            {
+                grid.Rows.Add();
+                for (int j = 0; j < table.Columns.Count; j++)
+                {
+                    grid.Rows[i].Cells[j].Value = table.Rows[i].ItemArray[j];
+                }
+            }
+        }
+
+        private void cbAccessLevel_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            DataGridView grid = (DataGridView)ParentForm.Controls["AdminUC"].Controls["dataGridView1"];
+            grid.Rows.Clear();
+
+            DataTable table = WorkWithData.ExecuteSqlQueryAsDataTable($@"SELECT Users.Id, FirstName, LastName, MiddleName, Login, Password, Roles.RoleName , Groups.GroupName, Email, Users.isDelete
+                                                                                       FROM Users
+                                                                                       LEFT JOIN Groups ON Users.UserGroup = Groups.Id
+                                                                                       LEFT JOIN Roles ON Users.UserRole = Roles.Id
+                                                                                       WHERE Roles.RoleName = '{cbAccessLevel.SelectedItem}'");
+
+            for (int i = 0; i < table.Rows.Count; i++)
+            {
+                grid.Rows.Add();
+                for (int j = 0; j < table.Columns.Count; j++)
+                {
+                    grid.Rows[i].Cells[j].Value = table.Rows[i].ItemArray[j];
+                }
+            }
+        }
     }
 }

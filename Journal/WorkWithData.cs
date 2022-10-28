@@ -55,9 +55,9 @@ namespace Journal
 
         static public bool CheckDataCorrectnes(RegistrationUC uC)
         {
-            string pattern = @"^[a-z]+@[a-z]+[.][a-z]+"; //Регулярное выражения для проверки почты
+            string emailPattern = @"^[a-z]+@[a-z]+[.][a-z]+"; //Регулярное выражения для проверки почты
 
-            if (!Regex.IsMatch(uC.Controls[0].Controls["tbEmail"].Text, pattern, RegexOptions.IgnoreCase))
+            if (!Regex.IsMatch(uC.Controls[0].Controls["tbEmail"].Text, emailPattern, RegexOptions.IgnoreCase))
             {
                 MessageBox.Show("Некоректный адрес электронной почты");
                 return false;

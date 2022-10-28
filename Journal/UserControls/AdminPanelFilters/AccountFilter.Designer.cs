@@ -42,6 +42,7 @@
             this.cbAccessLevel.Name = "cbAccessLevel";
             this.cbAccessLevel.Size = new System.Drawing.Size(121, 21);
             this.cbAccessLevel.TabIndex = 0;
+            this.cbAccessLevel.SelectionChangeCommitted += new System.EventHandler(this.cbAccessLevel_SelectionChangeCommitted);
             // 
             // label2
             // 
@@ -71,6 +72,7 @@
             this.cbGroup.Name = "cbGroup";
             this.cbGroup.Size = new System.Drawing.Size(121, 21);
             this.cbGroup.TabIndex = 3;
+            this.cbGroup.SelectionChangeCommitted += new System.EventHandler(this.cbGroup_SelectionChangeCommitted);
             // 
             // AccountFilter
             // 

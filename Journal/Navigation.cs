@@ -47,7 +47,7 @@ namespace Journal
             form.FormBorderStyle = FormBorderStyle.Sizable;
             form.MaximizeBox = true;
             form.Controls.Clear();
-            form.Controls.Add(new AdminUC { Dock = DockStyle.Fill }); 
+            form.Controls.Add(new StudentUC { Dock = DockStyle.Fill }); 
         }
     }
 }

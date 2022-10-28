@@ -17,54 +17,211 @@ namespace Journal
             InitializeComponent();
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbChoiceDataTable_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch(comboBox1.SelectedIndex)
+            switch (cbChoiceDataTable.SelectedIndex)
             {
                 case 0:
+                    ViewAccountTable();
+                    break;
+                case 1:
+                    ViewSpecializationTable();
+                    break;
+                case 2:
+                    ViewGroupTable();
+                    break;
+                case 3:
+                    ViewTeacherTable();
+                    break;
+                case 4:
+                    ViewStudentsTable();
+                    break;
+                case 5:
+                    ViewSubjectsTable();
+                    break;
+                default:
                     panel1.Controls.Clear();
-                    panel1.Controls.Add(new AccountFilter() { Dock = DockStyle.Fill});
+                    break;
+            }
+        }
 
-                    List<string> userRoleList = WorkWithData.ExecuteSqlQueryAsEnumerable("SELECT RoleName FROM Roles").Select(x => x.Field<string>("RoleName")).ToList();
-                    List<string> userGroupList = WorkWithData.ExecuteSqlQueryAsEnumerable("SELECT GroupName FROM Groups").Select(x => x.Field<string>("GroupName")).ToList();
+        private void ViewAccountTable()
+        {
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
+            panel1.Controls.Clear();
+            panel1.Controls.Add(new AccountFilter() { Dock = DockStyle.Fill });
 
-                    dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { Name = "Id", HeaderText = "Id" });
-                    dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { Name = "FirstName", HeaderText = "Фамилия" });
-                    dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { Name = "LastName", HeaderText = "Имя" });
-                    dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { Name = "MiddleName", HeaderText = "Отчество" });
-                    dataGridView1.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Login", HeaderText = "Логин" });
-                    dataGridView1.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Password", HeaderText = "Пароль" });
-                    dataGridView1.Columns.Add(new DataGridViewComboBoxColumn() { Name = "UserRole", HeaderText = "Доступ", DataSource = userRoleList});
-                    dataGridView1.Columns.Add(new DataGridViewComboBoxColumn() { Name = "UserGroup", HeaderText = "Группа", DataSource = userGroupList });
-                    dataGridView1.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Email", HeaderText = "Почта" });
-                    dataGridView1.Columns.Add(new DataGridViewCheckBoxColumn() { Name = "isDelete", HeaderText = "Удалён" });
+            List<string> userRoles = WorkWithData.ExecuteSqlQueryAsEnumerable("SELECT RoleName FROM Roles").Select(x => x.Field<string>("RoleName")).ToList();
+            List<string> userGroups = WorkWithData.ExecuteSqlQueryAsEnumerable("SELECT GroupName FROM Groups").Select(x => x.Field<string>("GroupName")).ToList();
 
-                    DataTable table = WorkWithData.ExecuteSqlQueryAsDataTable(@"SELECT Users.Id, FirstName, LastName, MiddleName, Login, Password, Roles.RoleName , Groups.GroupName, Email, isDelete
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { Name = "Id", HeaderText = "Id" });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { Name = "FirstName", HeaderText = "Фамилия" });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { Name = "LastName", HeaderText = "Имя" });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { Name = "MiddleName", HeaderText = "Отчество" });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Login", HeaderText = "Логин" });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Password", HeaderText = "Пароль" });
+            dataGridView1.Columns.Add(new DataGridViewComboBoxColumn() { Name = "UserRole", HeaderText = "Доступ", DataSource = userRoles });
+            dataGridView1.Columns.Add(new DataGridViewComboBoxColumn() { Name = "UserGroup", HeaderText = "Группа", DataSource = userGroups });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Email", HeaderText = "Почта" });
+            dataGridView1.Columns.Add(new DataGridViewCheckBoxColumn() { Name = "isDelete", HeaderText = "Удалён" });
+
+            DataTable table = WorkWithData.ExecuteSqlQueryAsDataTable(@"SELECT Users.Id, FirstName, LastName, MiddleName, Login, Password, Roles.RoleName, Groups.GroupName, Email, Users.isDelete
                                                                                        FROM Users
                                                                                        LEFT JOIN Groups ON Users.UserGroup = Groups.Id
                                                                                        LEFT JOIN Roles ON Users.UserRole = Roles.Id");
 
-                    for(int i = 0; i < table.Rows.Count; i++)
-                    {
-                        dataGridView1.Rows.Add();
-                        for (int j = 0; j < table.Columns.Count; j++)
-                        {
-                            dataGridView1.Rows[i].Cells[j].Value = table.Rows[i].ItemArray[j];
-                        }
-                    }
-                    break;
-                case 4:
-                    panel1.Controls.Clear();
-                    panel1.Controls.Add(new StudentsFilter() { Dock = DockStyle.Fill });
-                    dataGridView1.DataSource = null;
-                    break;
-                case 5:
-                    panel1.Controls.Clear();
-                    panel1.Controls.Add(new SubjectsFilter() { Dock = DockStyle.Fill });
-                    break;
-                default: 
-                    panel1.Controls.Clear();
-                    break;
+            for (int i = 0; i < table.Rows.Count; i++)
+            {
+                dataGridView1.Rows.Add();
+                for (int j = 0; j < table.Columns.Count; j++)
+                {
+                    dataGridView1.Rows[i].Cells[j].Value = table.Rows[i].ItemArray[j];
+                }
+            }
+        }
+
+        private void ViewSpecializationTable()
+        {
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
+            panel1.Controls.Clear();
+
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { Name = "Id", HeaderText = "Id" });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { Name = "SpecializationName", HeaderText = "Название специализации", Width = 250 });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { Name = "SemesterCount", HeaderText = "Кол-во семестров" });
+            dataGridView1.Columns.Add(new DataGridViewCheckBoxColumn() { Name = "isDelete", HeaderText = "Удалён" });
+
+            DataTable table = WorkWithData.ExecuteSqlQueryAsDataTable(@"SELECT id, SpecializationName, SemestersCount, isDelete
+                                                                                       FROM Specialization");
+
+            for (int i = 0; i < table.Rows.Count; i++)
+            {
+                dataGridView1.Rows.Add();
+                for (int j = 0; j < table.Columns.Count; j++)
+                {
+                    dataGridView1.Rows[i].Cells[j].Value = table.Rows[i].ItemArray[j];
+                }
+            }
+        }
+        
+        private void ViewGroupTable()
+        {
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
+            panel1.Controls.Clear();
+
+            List<string> specializations = WorkWithData.ExecuteSqlQueryAsEnumerable("SELECT SpecializationName FROM Specialization").Select(x => x.Field<string>("SpecializationName")).ToList();
+            
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { Name = "Id", HeaderText = "Id" });
+            dataGridView1.Columns.Add(new DataGridViewComboBoxColumn() { Name = "Specialization", HeaderText = "Специализация", DataSource = specializations });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn() { Name = "GroupName", HeaderText = "Группа" });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn() { Name = "GroupCode", HeaderText = "Код группы" });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn() { Name = "StartStuding", HeaderText = "Начало обучения" });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn() { Name = "EndStuding", HeaderText = "Конец обучения" });
+            dataGridView1.Columns.Add(new DataGridViewCheckBoxColumn() { Name = "isDelete", HeaderText = "Удалён" });
+
+            DataTable table = WorkWithData.ExecuteSqlQueryAsDataTable(@"SELECT Groups.id, SpecializationName, GroupName, GroupCode, StartStuding, EndStuding 
+                                                                               FROM Groups LEFT JOIN 
+                                                                                    Specialization s on s.Id = Groups.SpecializationId ");
+
+            for (int i = 0; i < table.Rows.Count; i++)
+            {
+                dataGridView1.Rows.Add();
+                for (int j = 0; j < table.Columns.Count; j++)
+                {
+                    dataGridView1.Rows[i].Cells[j].Value = table.Rows[i].ItemArray[j];
+                }
+            }
+        }
+
+        private void ViewTeacherTable()
+        {
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
+            panel1.Controls.Clear();
+
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { Name = "firstName", HeaderText = "Фамилия" });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { Name = "lastName", HeaderText = "Имя"});
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { Name = "middleName", HeaderText = "Отчество" });
+            dataGridView1.Columns.Add(new DataGridViewCheckBoxColumn() { Name = "isDelete", HeaderText = "Удалён" });
+
+            DataTable table = WorkWithData.ExecuteSqlQueryAsDataTable(@"SELECT FirstName, LastName, MiddleName, isDelete FROM Users
+                                                                        WHERE UserRole = 3");
+
+            for (int i = 0; i < table.Rows.Count; i++)
+            {
+                dataGridView1.Rows.Add();
+                for (int j = 0; j < table.Columns.Count; j++)
+                {
+                    dataGridView1.Rows[i].Cells[j].Value = table.Rows[i].ItemArray[j];
+                }
+            }
+        }
+
+        private void ViewStudentsTable()
+        {
+            panel1.Controls.Clear();
+            panel1.Controls.Add(new StudentsFilter() { Dock = DockStyle.Fill });
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
+
+            List<string> groups = WorkWithData.ExecuteSqlQueryAsEnumerable("SELECT GroupName FROM Groups").Select(x => x.Field<string>("GroupName")).ToList();
+
+            dataGridView1.Columns.Add(new DataGridViewComboBoxColumn() { Name = "groupName", HeaderText = "Группа", DataSource = groups });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn() { Name = "firstName", HeaderText = "Фамилия" });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn() { Name = "lastName", HeaderText = "Имя" });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn() { Name = "middleName", HeaderText = "Отчество" });
+            dataGridView1.Columns.Add(new DataGridViewCheckBoxColumn() { Name = "isDelete", HeaderText = "Удалён" });
+
+            DataTable table = WorkWithData.ExecuteSqlQueryAsDataTable(@"SELECT GroupName, FirstName, LastName, MiddleName, Users.isDelete 
+                                                                        FROM Users LEFT JOIN
+                                                                             Groups g ON g.Id = Users.UserGroup 
+                                                                        WHERE UserRole = 2");
+
+            for (int i = 0; i < table.Rows.Count; i++)
+            {
+                dataGridView1.Rows.Add();
+                for (int j = 0; j < table.Columns.Count; j++)
+                {
+                    dataGridView1.Rows[i].Cells[j].Value = table.Rows[i].ItemArray[j];
+                }
+            }
+        }
+
+        private void ViewSubjectsTable()
+        {
+            panel1.Controls.Clear();
+            panel1.Controls.Add(new SubjectsFilter() { Dock = DockStyle.Fill });
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
+
+            List<string> groups = WorkWithData.ExecuteSqlQueryAsEnumerable("SELECT GroupName FROM Groups").Select(x => x.Field<string>("GroupName")).ToList();
+            List<string> specializations = WorkWithData.ExecuteSqlQueryAsEnumerable("SELECT SpecializationName FROM Specialization").Select(x => x.Field<string>("SpecializationName")).ToList();
+            List<string> teachers = WorkWithData.ExecuteSqlQueryAsEnumerable("SELECT (FirstName || ' ' || LastName || ' ' || MiddleName) AS TeacherName FROM Users WHERE UserRole = 3").Select(x => x.Field<string>("TeacherName")).ToList();
+
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn() { Name = "id", HeaderText = "Id" });
+            dataGridView1.Columns.Add(new DataGridViewComboBoxColumn() { Name = "specializations", HeaderText = "Специальность", DataSource = specializations });
+            dataGridView1.Columns.Add(new DataGridViewComboBoxColumn() { Name = "group", HeaderText = "Группа", DataSource = groups });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn() { Name = "subject", HeaderText = "Предмет" });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn() { Name = "hours", HeaderText = "Часы" });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn() { Name = "semester", HeaderText = "Семестр" });
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn() { Name = "description", HeaderText = "Описание" });
+            dataGridView1.Columns.Add(new DataGridViewComboBoxColumn() { Name = "teacher", HeaderText = "Преподаватель", DataSource = teachers });
+            dataGridView1.Columns.Add(new DataGridViewCheckBoxColumn() { Name = "isDelete", HeaderText = "Удалён" });
+
+            DataTable table = WorkWithData.ExecuteSqlQueryAsDataTable(@"SELECT Subjects.Id, SpecializationName, GroupName, SubjectName, Hours, Semester, Description, (FirstName || ' ' || LastName || ' ' || MiddleName) AS TeacherName, Subjects.IsDelete FROM Subjects 
+LEFT JOIN Specialization s ON s.Id = Subjects.SpecializationId
+LEFT JOIN Groups g ON g.Id = Subjects.GroupId 
+LEFT JOIN Users u ON u.Id = Subjects.Teacher ");
+
+            for (int i = 0; i < table.Rows.Count; i++)
+            {
+                dataGridView1.Rows.Add();
+                for (int j = 0; j < table.Columns.Count; j++)
+                {
+                    dataGridView1.Rows[i].Cells[j].Value = table.Rows[i].ItemArray[j];
+                }
             }
         }
     }

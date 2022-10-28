@@ -27,14 +27,13 @@ namespace Journal
 
         private void bRegistration_Click(object sender, EventArgs e)
         {
-            var x = this;
             if (!WorkWithData.CheckDataCorrectnes(this))
             {
                 return;
             }
 
             SQLiteConnection connection = new SQLiteConnection(@"Data Source = C:\Users\l.m\source\repos\Journal\database.db");
-            string sqlQuery = $"INSERT INTO Users (FirstName, LastName, MiddleName, Login, Password, UserRole, UserGroup, Email) VALUES ('{tbSecondName.Text}', '{tbFirstName.Text}', '{tbThirdName.Text}', '{tbLogin.Text}', '{tbPassword.Text}', 1, {cbGroup.SelectedIndex}, '{tbEmail.Text}');";
+            string sqlQuery = $"INSERT INTO Users (FirstName, LastName, MiddleName, Login, Password, UserRole, UserGroup, Email) VALUES ('{tbSecondName.Text}', '{tbFirstName.Text}', '{tbThirdName.Text}', '{tbLogin.Text}', '{tbPassword.Text}', {(cbGroup.SelectedIndex == 0 ? 1 : 2 )}, {cbGroup.SelectedIndex}, '{tbEmail.Text}');";
             connection.Open();
             SQLiteCommand command = new SQLiteCommand(sqlQuery, connection);
             command.ExecuteNonQuery();
