@@ -16,7 +16,7 @@ namespace Journal
         {
             DataTable dataTable = new DataTable();
 
-            using (SQLiteConnection db = new SQLiteConnection(@"Data Source = C:\Users\l.m\source\repos\Journal\database.db"))
+            using (SQLiteConnection db = new SQLiteConnection($"Data Source = {Environment.CurrentDirectory}\\database.db"))
             {
                 SQLiteCommand selectCommand = new SQLiteCommand(sqlQuery, db);
                 try

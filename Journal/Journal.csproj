@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Structs.cs" />
     <Compile Include="WorkWithData.cs" />
     <Compile Include="UserControls\AdminPanelFilters\AccountFilter.cs">
       <SubType>UserControl</SubType>
@@ -161,9 +162,7 @@
     <EmbeddedResource Include="UserControls\TeacherUC.resx">
       <DependentUpon>TeacherUC.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="database.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="database.db" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -25,7 +25,7 @@ namespace Journal
 
         private void bLogIn_Click(object sender, EventArgs e)
         {
-            string query = $"SELECT login, UserRole FROM Users WHERE(Login = '{textBox2.Text}' OR Login = '{textBox2.Text}') AND Password = '{textBox1.Text}' AND isDelete = 0";
+            string query = $"SELECT id, login, UserRole FROM Users WHERE(Login = '{textBox2.Text}' OR Login = '{textBox2.Text}') AND Password = '{textBox1.Text}' AND isDelete = 0";
             var userData = WorkWithData.ExecuteSqlQueryAsEnumerable(query);
             if(userData.Count() == 0)
             {
@@ -33,7 +33,8 @@ namespace Journal
                 return;
             }
 
-            var userRole = userData.ToArray()[0].ItemArray[1];
+            var userId = Convert.ToInt32(userData.ToArray()[0].ItemArray[0]);
+            var userRole = userData.ToArray()[0].ItemArray[2];
 
             switch (userRole)
             {
@@ -44,7 +45,7 @@ namespace Journal
                     Navigation.OpenTeacherUC(this.ParentForm);
                     break;
                 case "2":
-                    Navigation.OpenStudentUC(this.ParentForm);
+                    Navigation.OpenStudentUC(this.ParentForm, userId);
                     break;
                 default:
                     MessageBox.Show("Нет доступа");

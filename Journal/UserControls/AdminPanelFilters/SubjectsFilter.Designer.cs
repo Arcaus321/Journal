@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cbSubject = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.cbSemester = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label2
@@ -44,14 +44,15 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "Предмет";
             // 
-            // comboBox1
+            // cbSubject
             // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(135, 18);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 5;
+            this.cbSubject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbSubject.FormattingEnabled = true;
+            this.cbSubject.Location = new System.Drawing.Point(135, 18);
+            this.cbSubject.Name = "cbSubject";
+            this.cbSubject.Size = new System.Drawing.Size(121, 21);
+            this.cbSubject.TabIndex = 5;
+            this.cbSubject.SelectionChangeCommitted += new System.EventHandler(this.sbSubject_SelectionChangeCommitted);
             // 
             // label1
             // 
@@ -63,25 +64,27 @@
             this.label1.TabIndex = 8;
             this.label1.Text = "Семестр";
             // 
-            // comboBox2
+            // cbSemester
             // 
-            this.comboBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(4, 18);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 7;
+            this.cbSemester.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbSemester.FormattingEnabled = true;
+            this.cbSemester.Location = new System.Drawing.Point(4, 18);
+            this.cbSemester.Name = "cbSemester";
+            this.cbSemester.Size = new System.Drawing.Size(121, 21);
+            this.cbSemester.TabIndex = 7;
+            this.cbSemester.SelectionChangeCommitted += new System.EventHandler(this.cbSemester_SelectionChangeCommitted);
             // 
-            // StudentsFilter
+            // SubjectsFilter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.cbSemester);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.comboBox1);
-            this.Name = "StudentsFilter";
+            this.Controls.Add(this.cbSubject);
+            this.Name = "SubjectsFilter";
             this.Size = new System.Drawing.Size(257, 40);
+            this.Load += new System.EventHandler(this.SubjectsFilter_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -90,8 +93,8 @@
         #endregion
 
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbSubject;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cbSemester;
     }
 }

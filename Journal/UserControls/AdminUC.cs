@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -223,6 +224,12 @@ LEFT JOIN Users u ON u.Id = Subjects.Teacher ");
                     dataGridView1.Rows[i].Cells[j].Value = table.Rows[i].ItemArray[j];
                 }
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var a = dataGridView1;
+            SQLiteDataAdapter dsa = new SQLiteDataAdapter();
         }
     }
 }

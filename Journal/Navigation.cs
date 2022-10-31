@@ -41,13 +41,13 @@ namespace Journal
             form.Controls.Add(new TeacherUC { Dock = DockStyle.Fill }); 
         }
         
-        public static void OpenStudentUC(Form form)
+        public static void OpenStudentUC(Form form, int userId)
         {
             form.Text = "Журнал - Оценки";
             form.FormBorderStyle = FormBorderStyle.Sizable;
             form.MaximizeBox = true;
             form.Controls.Clear();
-            form.Controls.Add(new StudentUC { Dock = DockStyle.Fill }); 
+            form.Controls.Add(new StudentUC(userId) { Dock = DockStyle.Fill }); 
         }
     }
 }
