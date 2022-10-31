@@ -40,7 +40,15 @@ namespace Journal
 
         public DataTable GetSubjects()
         {
-            string query = $"select Distinct id, subjectName from subjects Where Groupid = {this.GroupId}";
+            string query = $"select Distinct id, subjectName from subjects Where Groupid = {GroupId}";
+            DataTable subjects = WorkWithData.ExecuteSqlQueryAsDataTable(query);
+            return subjects;
+        }
+
+        public DataTable GetSemesters()
+        {
+            string query = $@"SELECT DISTINCT Semester FROM Subjects s
+                              WHERE GroupId = {GroupId}";
             DataTable subjects = WorkWithData.ExecuteSqlQueryAsDataTable(query);
             return subjects;
         }

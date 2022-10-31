@@ -17,7 +17,7 @@ namespace Journal
         {
             InitializeComponent();
         }
-
+        SQLiteDataAdapter adapter = new SQLiteDataAdapter();
         private void cbChoiceDataTable_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (cbChoiceDataTable.SelectedIndex)
@@ -47,6 +47,56 @@ namespace Journal
         }
 
         private void ViewAccountTable()
+        {
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
+            panel1.Controls.Clear();
+            panel1.Controls.Add(new AccountFilter() { Dock = DockStyle.Fill });
+
+            var userRoles = WorkWithData.ExecuteSqlQueryAsEnumerable("SELECT Id, RoleName FROM Roles").Select(x => new { Id = x.Field<string>("ID"), RoleName = x.Field<string>("RoleName") }).ToList();
+            var userGroups = WorkWithData.ExecuteSqlQueryAsEnumerable("SELECT Id, GroupName FROM Groups").Select(x => new { Id = x.Field<string>("ID"), GroupName = x.Field<string>("GroupName") }).ToList(); 
+            //dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { Name = "Id", HeaderText = "Id" });
+            //dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { Name = "FirstName", HeaderText = "Фамилия" });
+            //dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { Name = "LastName", HeaderText = "Имя" });
+            //dataGridView1.Columns.Add(new DataGridViewTextBoxColumn { Name = "MiddleName", HeaderText = "Отчество" });
+            //dataGridView1.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Login", HeaderText = "Логин" });
+            //dataGridView1.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Password", HeaderText = "Пароль" });
+            //dataGridView1.Columns.Add(new DataGridViewComboBoxColumn() { Name = "UserRole", HeaderText = "Доступ", DataSource = userRoles});
+            //dataGridView1.Columns.Add(new DataGridViewComboBoxColumn() { Name = "UserGroup", HeaderText = "Группа", DataSource = userGroups});
+            //dataGridView1.Columns.Add(new DataGridViewTextBoxColumn() { Name = "Email", HeaderText = "Почта" });
+            //dataGridView1.Columns.Add(new DataGridViewCheckBoxColumn() { Name = "isDelete", HeaderText = "Удалён" });
+            ////dataGridView1.AutoGenerateColumns = true;
+            //(dataGridView1.Columns["UserRole"] as DataGridViewComboBoxColumn).DataPropertyName = "UserRole";
+            //(dataGridView1.Columns["UserRole"] as DataGridViewComboBoxColumn).DisplayMember = "RoleName";
+            //(dataGridView1.Columns["UserRole"] as DataGridViewComboBoxColumn).ValueMember = "Id";
+            //(dataGridView1.Columns["GroupName"] as DataGridViewComboBoxColumn).DataPropertyName = "UserGroup";
+            //(dataGridView1.Columns["GroupName"] as DataGridViewComboBoxColumn).DisplayMember = "GroupName";
+            //(dataGridView1.Columns["GroupName"] as DataGridViewComboBoxColumn).ValueMember = "Id";
+
+            //DataTable table = WorkWithData.ExecuteSqlQueryAsDataTable(@"SELECT Users.Id, FirstName, LastName, MiddleName, Login, Password, Roles.RoleName, Groups.GroupName, Email, Users.isDelete
+            //                                                                           FROM Users
+            //                                                                           LEFT JOIN Groups ON Users.UserGroup = Groups.Id
+            //                                                                           LEFT JOIN Roles ON Users.UserRole = Roles.Id");
+            string query = @"SELECT Users.Id, FirstName, LastName, MiddleName, Login, Password, UserRole, UserGroup, Email, Users.isDelete
+FROM Users;";
+            DataTable table = new DataTable();
+            SQLiteConnection connection = new SQLiteConnection("Data Source = database.db");
+            
+            adapter.SelectCommand = new SQLiteCommand(query, connection);
+            adapter.Fill(table);
+            dataGridView1.DataSource = table;
+            //for (int i = 0; i < table.Rows.Count; i++)
+            //{
+            //    dataGridView1.Rows.Add();
+            //    for (int j = 0; j < table.Columns.Count; j++)
+            //    {
+            //        dataGridView1.Rows[i].Cells[j].Value = table.Rows[i].ItemArray[j];
+            //    }
+            //}
+            
+        }
+
+        private void ViewAccountTable1()
         {
             dataGridView1.Rows.Clear();
             dataGridView1.Columns.Clear();
@@ -226,10 +276,18 @@ LEFT JOIN Users u ON u.Id = Subjects.Teacher ");
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void bWriteToBase_Click(object sender, EventArgs e)
         {
-            var a = dataGridView1;
-            SQLiteDataAdapter dsa = new SQLiteDataAdapter();
+            SQLiteConnection connection = new SQLiteConnection("Data Source = database.db");
+
+            SQLiteCommandBuilder commandBuilder = new SQLiteCommandBuilder(adapter);
+            string a1 = commandBuilder.GetUpdateCommand().CommandText;
+            string a2 = commandBuilder.GetInsertCommand().CommandText;
+            string a3 = commandBuilder.GetDeleteCommand().CommandText;
+
+            adapter.SelectCommand = new SQLiteCommand(a1, connection);
+
+            adapter.Update(dataGridView1.DataSource as DataTable);
         }
     }
 }

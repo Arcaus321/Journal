@@ -30,9 +30,9 @@
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.cbChoiceDataTable = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.bUpdate = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
+            this.bWriteToBase = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,14 +63,14 @@
             this.cbChoiceDataTable.TabIndex = 1;
             this.cbChoiceDataTable.SelectedIndexChanged += new System.EventHandler(this.cbChoiceDataTable_SelectedIndexChanged);
             // 
-            // button1
+            // bUpdate
             // 
-            this.button1.Location = new System.Drawing.Point(154, 20);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(114, 21);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Выбрать/Обновить";
-            this.button1.UseVisualStyleBackColor = true;
+            this.bUpdate.Location = new System.Drawing.Point(154, 20);
+            this.bUpdate.Name = "bUpdate";
+            this.bUpdate.Size = new System.Drawing.Size(114, 21);
+            this.bUpdate.TabIndex = 2;
+            this.bUpdate.Text = "Выбрать/Обновить";
+            this.bUpdate.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -81,25 +81,25 @@
             this.panel1.Size = new System.Drawing.Size(433, 40);
             this.panel1.TabIndex = 3;
             // 
-            // button2
+            // bWriteToBase
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(713, 20);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(86, 23);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Сохранить";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.bWriteToBase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bWriteToBase.Location = new System.Drawing.Point(713, 20);
+            this.bWriteToBase.Name = "bWriteToBase";
+            this.bWriteToBase.Size = new System.Drawing.Size(86, 23);
+            this.bWriteToBase.TabIndex = 4;
+            this.bWriteToBase.Text = "Сохранить";
+            this.bWriteToBase.UseVisualStyleBackColor = true;
+            this.bWriteToBase.Click += new System.EventHandler(this.bWriteToBase_Click);
             // 
             // AdminUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.bWriteToBase);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.bUpdate);
             this.Controls.Add(this.cbChoiceDataTable);
             this.Name = "AdminUC";
             this.Size = new System.Drawing.Size(811, 565);
@@ -112,8 +112,8 @@
 
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.ComboBox cbChoiceDataTable;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button bUpdate;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button bWriteToBase;
     }
 }

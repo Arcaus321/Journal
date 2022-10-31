@@ -30,12 +30,12 @@
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label4 = new System.Windows.Forms.Label();
+            this.labelTeacher = new System.Windows.Forms.Label();
             this.labelStudentInfo = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cbSubject = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.cbSemester = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.bShowMarks = new System.Windows.Forms.Button();
@@ -65,7 +65,7 @@
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.OutsetDouble;
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.labelTeacher, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.labelStudentInfo, 0, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -75,14 +75,13 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(803, 152);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
-            // label4
+            // labelTeacher
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 78);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 13);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "label4";
+            this.labelTeacher.AutoSize = true;
+            this.labelTeacher.Location = new System.Drawing.Point(6, 78);
+            this.labelTeacher.Name = "labelTeacher";
+            this.labelTeacher.Size = new System.Drawing.Size(0, 13);
+            this.labelTeacher.TabIndex = 1;
             // 
             // labelStudentInfo
             // 
@@ -118,13 +117,13 @@
             this.cbSubject.Size = new System.Drawing.Size(145, 21);
             this.cbSubject.TabIndex = 4;
             // 
-            // comboBox2
+            // cbSemester
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(6, 64);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(145, 21);
-            this.comboBox2.TabIndex = 5;
+            this.cbSemester.FormattingEnabled = true;
+            this.cbSemester.Location = new System.Drawing.Point(6, 64);
+            this.cbSemester.Name = "cbSemester";
+            this.cbSemester.Size = new System.Drawing.Size(145, 21);
+            this.cbSemester.TabIndex = 5;
             // 
             // panel1
             // 
@@ -133,7 +132,7 @@
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.bShowMarks);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.comboBox2);
+            this.panel1.Controls.Add(this.cbSemester);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.cbSubject);
             this.panel1.Location = new System.Drawing.Point(812, 3);
@@ -184,11 +183,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cbSubject;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cbSemester;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button bShowMarks;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label labelTeacher;
         private System.Windows.Forms.Label labelStudentInfo;
         private System.Windows.Forms.DataGridView dataGridView1;
     }
