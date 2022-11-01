@@ -25,7 +25,7 @@ namespace Journal
 
         private void bLogIn_Click(object sender, EventArgs e)
         {
-            string query = $"SELECT id, login, UserRole FROM Users WHERE(Login = '{textBox2.Text}' OR Login = '{textBox2.Text}') AND Password = '{textBox1.Text}' AND isDelete = 0";
+            string query = $"SELECT id, login, UserRole FROM Users WHERE(Login = '{tbLogin.Text}' OR Login = '{tbLogin.Text}') AND Password = '{tbPasswd.Text}' AND isDelete = 0";
             var userData = WorkWithData.ExecuteSqlQueryAsEnumerable(query);
             if(userData.Count() == 0)
             {
@@ -42,7 +42,7 @@ namespace Journal
                     Navigation.OpenAdminUC(this.ParentForm);
                     break;
                 case 3:
-                    Navigation.OpenTeacherUC(this.ParentForm);
+                    Navigation.OpenTeacherUC(this.ParentForm, userId);
                     break;
                 case 2:
                     Navigation.OpenStudentUC(this.ParentForm, userId);

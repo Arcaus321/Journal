@@ -32,13 +32,13 @@ namespace Journal
             form.Controls.Add(new AdminUC { Dock = DockStyle.Fill }); 
         }
         
-        public static void OpenTeacherUC(Form form)
+        public static void OpenTeacherUC(Form form, int userId)
         {
             form.Text = "Журнал - Панель преподавателя";
             form.FormBorderStyle = FormBorderStyle.Sizable;
             form.MaximizeBox = true;
             form.Controls.Clear();
-            form.Controls.Add(new TeacherUC { Dock = DockStyle.Fill }); 
+            form.Controls.Add(new TeacherUC(userId) { Dock = DockStyle.Fill }); 
         }
         
         public static void OpenStudentUC(Form form, int userId)

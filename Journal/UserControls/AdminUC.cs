@@ -132,7 +132,9 @@ namespace Journal
             dataGridView1.Columns.Clear();
             panel1.Controls.Clear();
 
-            query = @"SELECT id, FirstName, LastName, MiddleName, isDelete FROM Users";
+            query = @"SELECT id, FirstName, LastName, MiddleName, isDelete 
+                      FROM Users
+                      WHERE UserRole = 3";
             DataTable teachersTable = WorkWithData.ExecuteSqlQueryAsDataTable(query);
             dataGridView1.DataSource = teachersTable;
         }
@@ -142,7 +144,7 @@ namespace Journal
             dataGridView1.Columns.Clear();
             panel1.Controls.Clear();
 
-            DataTable groups = WorkWithData.ExecuteSqlQueryAsDataTable("SELECT id, GroupName FROM Groups");
+            DataTable groups = WorkWithData.ExecuteSqlQueryAsDataTable("SELECT id, (GroupName || ' (' || GroupCode || ')') as GroupName FROM Groups");
 
             dataGridView1.Columns.Add(new DataGridViewComboBoxColumn()
             {
@@ -192,7 +194,5 @@ namespace Journal
             adapter.Update(dataGridView1.DataSource as DataTable);
             UpdateDataTable();
         }
-
-        
     }
 }
