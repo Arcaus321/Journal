@@ -33,18 +33,18 @@ namespace Journal
                 return;
             }
 
-            var userId = Convert.ToInt32(userData.ToArray()[0].ItemArray[0]);
-            var userRole = userData.ToArray()[0].ItemArray[2];
+            int userId = Convert.ToInt32(userData.ToArray()[0].ItemArray[0]);
+            int userRole = Convert.ToInt32(userData.ToArray()[0].ItemArray[2]);
 
             switch (userRole)
             {
-                case "4":
+                case 4:
                     Navigation.OpenAdminUC(this.ParentForm);
                     break;
-                case "3":
+                case 3:
                     Navigation.OpenTeacherUC(this.ParentForm);
                     break;
-                case "2":
+                case 2:
                     Navigation.OpenStudentUC(this.ParentForm, userId);
                     break;
                 default:

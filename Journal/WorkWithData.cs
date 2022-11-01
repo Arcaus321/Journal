@@ -14,6 +14,16 @@ namespace Journal
     {
         static public DataTable ExecuteSqlQueryAsDataTable(string sqlQuery)
         {
+            DataTable table = new DataTable();
+            SQLiteConnection connection = new SQLiteConnection("Data Source = database.db");
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(sqlQuery, connection);
+            adapter.SelectCommand = new SQLiteCommand(sqlQuery, connection);
+            adapter.Fill(table);
+            return table;
+        }
+        
+        static public DataTable ExecuteSqlQueryAsDataTable1(string sqlQuery)
+        {
             DataTable dataTable = new DataTable();
 
             using (SQLiteConnection db = new SQLiteConnection($"Data Source = {Environment.CurrentDirectory}\\database.db"))

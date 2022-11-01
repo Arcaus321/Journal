@@ -32,7 +32,6 @@ namespace Journal
         private void cbGroup_SelectionChangeCommitted(object sender, EventArgs e)
         {
             DataGridView grid = (DataGridView)ParentForm.Controls["AdminUC"].Controls["dataGridView1"];
-            grid.Rows.Clear();
 
             DataTable table = WorkWithData.ExecuteSqlQueryAsDataTable($@"SELECT Users.Id, FirstName, LastName, MiddleName, Login, Password, Roles.RoleName , Groups.GroupName, Email, Users.isDelete
                                                                                        FROM Users

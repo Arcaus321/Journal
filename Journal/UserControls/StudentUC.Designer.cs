@@ -37,7 +37,7 @@
             this.cbSubject = new System.Windows.Forms.ComboBox();
             this.cbSemester = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
+            this.bCreditBook = new System.Windows.Forms.Button();
             this.bShowMarks = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -129,7 +129,7 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.bCreditBook);
             this.panel1.Controls.Add(this.bShowMarks);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.cbSemester);
@@ -140,14 +140,15 @@
             this.panel1.Size = new System.Drawing.Size(160, 152);
             this.panel1.TabIndex = 6;
             // 
-            // button2
+            // bCreditBook
             // 
-            this.button2.Location = new System.Drawing.Point(6, 121);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(145, 23);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "Зачётка";
-            this.button2.UseVisualStyleBackColor = true;
+            this.bCreditBook.Location = new System.Drawing.Point(6, 121);
+            this.bCreditBook.Name = "bCreditBook";
+            this.bCreditBook.Size = new System.Drawing.Size(145, 23);
+            this.bCreditBook.TabIndex = 7;
+            this.bCreditBook.Text = "Зачётка";
+            this.bCreditBook.UseVisualStyleBackColor = true;
+            this.bCreditBook.Click += new System.EventHandler(this.bCreditBook_Click);
             // 
             // bShowMarks
             // 
@@ -185,7 +186,7 @@
         private System.Windows.Forms.ComboBox cbSubject;
         private System.Windows.Forms.ComboBox cbSemester;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button bCreditBook;
         private System.Windows.Forms.Button bShowMarks;
         private System.Windows.Forms.Label labelTeacher;
         private System.Windows.Forms.Label labelStudentInfo;
