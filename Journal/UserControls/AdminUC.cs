@@ -19,7 +19,7 @@ namespace Journal
         }
         SQLiteDataAdapter adapter;
         SQLiteCommandBuilder commandBuilder;
-        string query;
+        public string query;
         private void cbChoiceDataTable_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateDataTable();
@@ -143,6 +143,7 @@ namespace Journal
         {
             dataGridView1.Columns.Clear();
             panel1.Controls.Clear();
+            panel1.Controls.Add(new StudentsFilter() { Dock = DockStyle.Fill });
 
             DataTable groups = WorkWithData.ExecuteSqlQueryAsDataTable("SELECT id, (GroupName || ' (' || GroupCode || ')') as GroupName FROM Groups");
 
@@ -165,6 +166,10 @@ namespace Journal
 
         private void ViewSubjectsTable()
         {
+            dataGridView1.Columns.Clear();
+            panel1.Controls.Clear();
+            panel1.Controls.Add(new SubjectsFilter() { Dock = DockStyle.Fill });
+
             DataTable groups = WorkWithData.ExecuteSqlQueryAsDataTable("SELECT id, GroupName FROM Groups");
             DataTable specializations = WorkWithData.ExecuteSqlQueryAsDataTable("SELECT id, SpecializationName FROM Specialization");
             DataTable teachers = WorkWithData.ExecuteSqlQueryAsDataTable("SELECT id, (FirstName || ' ' || LastName || ' ' || MiddleName) AS TeacherName FROM Users WHERE UserRole = 3");
@@ -190,6 +195,8 @@ namespace Journal
             connection.Open();
             adapter = new SQLiteDataAdapter(query, connection);
             commandBuilder = new SQLiteCommandBuilder(adapter);
+            string comd = commandBuilder.GetUpdateCommand().CommandText;
+
             adapter.SelectCommand = commandBuilder.GetUpdateCommand();
             adapter.Update(dataGridView1.DataSource as DataTable);
             UpdateDataTable();

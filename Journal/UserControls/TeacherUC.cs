@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -33,6 +34,9 @@ namespace Journal
             cbGroup.DataSource = groups;
             cbGroup.DisplayMember = "GroupName";
             cbGroup.ValueMember = "Id";
+
+            SQLiteCommand cmd = new SQLiteCommand();
+            //cmd.Parameters.Add()
         }
     }
 }

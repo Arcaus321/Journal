@@ -33,41 +33,25 @@ namespace Journal
         {
             DataGridView grid = (DataGridView)ParentForm.Controls["AdminUC"].Controls["dataGridView1"];
 
-            DataTable table = WorkWithData.ExecuteSqlQueryAsDataTable($@"SELECT Users.Id, FirstName, LastName, MiddleName, Login, Password, Roles.RoleName , Groups.GroupName, Email, Users.isDelete
-                                                                                       FROM Users
-                                                                                       LEFT JOIN Groups ON Users.UserGroup = Groups.Id
-                                                                                       LEFT JOIN Roles ON Users.UserRole = Roles.Id
-                                                                                       WHERE Groups.GroupName = '{cbGroup.SelectedItem}'");
 
-            for (int i = 0; i < table.Rows.Count; i++)
-            {
-                grid.Rows.Add();
-                for (int j = 0; j < table.Columns.Count; j++)
-                {
-                    grid.Rows[i].Cells[j].Value = table.Rows[i].ItemArray[j];
-                }
-            }
+            string query = $@"SELECT id as ID, FirstName as Фамилия, LastName as Имя, MiddleName as Отчество, Login as Логин, Password as Пароль, UserRole, UserGroup, Email as Почта, isDelete as Удалён
+                             FROM Users
+                             WHERE UserGroup = {cbGroup.SelectedIndex}";
+            DataTable usersTable = WorkWithData.ExecuteSqlQueryAsDataTable(query);
+
+            grid.DataSource = usersTable;
         }
 
         private void cbAccessLevel_SelectionChangeCommitted(object sender, EventArgs e)
         {
             DataGridView grid = (DataGridView)ParentForm.Controls["AdminUC"].Controls["dataGridView1"];
-            grid.Rows.Clear();
 
-            DataTable table = WorkWithData.ExecuteSqlQueryAsDataTable($@"SELECT Users.Id, FirstName, LastName, MiddleName, Login, Password, Roles.RoleName , Groups.GroupName, Email, Users.isDelete
-                                                                                       FROM Users
-                                                                                       LEFT JOIN Groups ON Users.UserGroup = Groups.Id
-                                                                                       LEFT JOIN Roles ON Users.UserRole = Roles.Id
-                                                                                       WHERE Roles.RoleName = '{cbAccessLevel.SelectedItem}'");
+            string query = $@"SELECT id as ID, FirstName as Фамилия, LastName as Имя, MiddleName as Отчество, Login as Логин, Password as Пароль, UserRole, UserGroup, Email as Почта, isDelete as Удалён
+                             FROM Users
+                             WHERE UserRole = {cbAccessLevel.SelectedIndex}";
+            DataTable usersTable = WorkWithData.ExecuteSqlQueryAsDataTable(query);
 
-            for (int i = 0; i < table.Rows.Count; i++)
-            {
-                grid.Rows.Add();
-                for (int j = 0; j < table.Columns.Count; j++)
-                {
-                    grid.Rows[i].Cells[j].Value = table.Rows[i].ItemArray[j];
-                }
-            }
+            grid.DataSource = usersTable;
         }
     }
 }

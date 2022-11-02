@@ -20,52 +20,27 @@ namespace Journal
         private void cbSemester_SelectionChangeCommitted(object sender, EventArgs e)
         {
             DataGridView grid = (DataGridView)ParentForm.Controls["AdminUC"].Controls["dataGridView1"];
-            grid.Rows.Clear();
 
-            if(cbSemester.SelectedIndex == 0)
-            {
-                return;
-            }
-            DataTable table = WorkWithData.ExecuteSqlQueryAsDataTable($@"SELECT Subjects.Id, SpecializationName, GroupName, SubjectName, Hours, Semester, Description, (FirstName || ' ' || LastName || ' ' || MiddleName) AS TeacherName, Subjects.IsDelete FROM Subjects 
-                                                                         LEFT JOIN Specialization s ON s.Id = Subjects.SpecializationId
-                                                                         LEFT JOIN Groups g ON g.Id = Subjects.GroupId 
-                                                                         LEFT JOIN Users u ON u.Id = Subjects.Teacher
-                                                                         WHERE Semester = {cbSemester.SelectedItem}");
 
-            for (int i = 0; i < table.Rows.Count; i++)
-            {
-                grid.Rows.Add();
-                for (int j = 0; j < table.Columns.Count; j++)
-                {
-                    grid.Rows[i].Cells[j].Value = table.Rows[i].ItemArray[j];
-                }
-            }
+            string query = $@"SELECT id, SpecializationId, GroupId, SubjectName, Hours, Semester, Description, Teacher, IsDelete 
+                              FROM Subjects
+                              WHERE Semester = '{cbSemester.SelectedIndex}'";
+            DataTable usersTable = WorkWithData.ExecuteSqlQueryAsDataTable(query);
+
+            grid.DataSource = usersTable;
         }
 
         private void sbSubject_SelectionChangeCommitted(object sender, EventArgs e)
         {
             DataGridView grid = (DataGridView)ParentForm.Controls["AdminUC"].Controls["dataGridView1"];
-            grid.Rows.Clear();
 
-            if (cbSemester.SelectedIndex == 0)
-            {
-                return;
-            }
 
-            DataTable table = WorkWithData.ExecuteSqlQueryAsDataTable($@"SELECT Subjects.Id, SpecializationName, GroupName, SubjectName, Hours, Semester, Description, (FirstName || ' ' || LastName || ' ' || MiddleName) AS TeacherName, Subjects.IsDelete FROM Subjects 
-                                                                         LEFT JOIN Specialization s ON s.Id = Subjects.SpecializationId
-                                                                         LEFT JOIN Groups g ON g.Id = Subjects.GroupId 
-                                                                         LEFT JOIN Users u ON u.Id = Subjects.Teacher
-                                                                         WHERE SubjectName = '{cbSubject.SelectedItem}'");
+            string query = $@"SELECT id, SpecializationId, GroupId, SubjectName, Hours, Semester, Description, Teacher, IsDelete 
+                              FROM Subjects
+                              WHERE SubjectName = '{cbSubject.SelectedValue}'";
+            DataTable usersTable = WorkWithData.ExecuteSqlQueryAsDataTable(query);
 
-            for (int i = 0; i < table.Rows.Count; i++)
-            {
-                grid.Rows.Add();
-                for (int j = 0; j < table.Columns.Count; j++)
-                {
-                    grid.Rows[i].Cells[j].Value = table.Rows[i].ItemArray[j];
-                }
-            }
+            grid.DataSource = usersTable;
         }
 
         private void SubjectsFilter_Load(object sender, EventArgs e)
@@ -74,7 +49,7 @@ namespace Journal
             List<string> subjects = new List<string>() { "(Нет)" };
 
             subjects.AddRange(WorkWithData.ExecuteSqlQueryAsEnumerable("SELECT DISTINCT SubjectName FROM Subjects").Select(x => x.Field<string>("SubjectName")).ToList());
-            semesters.AddRange(WorkWithData.ExecuteSqlQueryAsEnumerable("SELECT DISTINCT Semester FROM Subjects").Select(x => x.Field<string>("Semester")).ToList());
+            semesters.AddRange(WorkWithData.ExecuteSqlQueryAsEnumerable("SELECT DISTINCT Semester FROM Subjects").Select(x => Convert.ToString(x.Field<Int64>("Semester"))).ToList());
 
             cbSubject.DataSource = subjects;
             cbSemester.DataSource = semesters;

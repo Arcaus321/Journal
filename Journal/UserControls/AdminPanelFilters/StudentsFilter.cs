@@ -20,21 +20,13 @@ namespace Journal
         private void cbGroup_SelectionChangeCommitted(object sender, EventArgs e)
         {
             DataGridView grid = (DataGridView)ParentForm.Controls["AdminUC"].Controls["dataGridView1"];
-            grid.Rows.Clear();
-            var a = cbGroup.SelectedItem;
-            DataTable table = WorkWithData.ExecuteSqlQueryAsDataTable($@"SELECT GroupName, FirstName, LastName, MiddleName, Users.isDelete 
-                                                                        FROM Users LEFT JOIN
-                                                                             Groups g ON g.Id = Users.UserGroup 
-                                                                        WHERE UserRole = 2 AND GroupName = '{cbGroup.SelectedItem}'");
 
-            for (int i = 0; i < table.Rows.Count; i++)
-            {
-                grid.Rows.Add();
-                for (int j = 0; j < table.Columns.Count; j++)
-                {
-                    grid.Rows[i].Cells[j].Value = table.Rows[i].ItemArray[j];
-                }
-            }
+            string query = $@"SELECT id, UserGroup, FirstName, LastName, MiddleName, Users.isDelete
+                              FROM Users
+                              WHERE UserRole = 2 AND UserGroup = {cbGroup.SelectedIndex}";
+            DataTable usersTable = WorkWithData.ExecuteSqlQueryAsDataTable(query);
+
+            grid.DataSource = usersTable;
         }
 
         private void StudentsFilter_Load(object sender, EventArgs e)
