@@ -90,6 +90,7 @@ namespace Journal
             dataGridView1.Columns["ID"].ReadOnly = true;
             dataGridView1.Columns["UserRole"].DisplayIndex = 7;
             dataGridView1.Columns["UserGroup"].DisplayIndex = 4;
+            dataGridView1.AllowUserToAddRows = true;
         }
 
         private void ViewSpecializationTable()
@@ -101,7 +102,9 @@ namespace Journal
                       FROM Specialization";
             DataTable usersTable = WorkWithData.ExecuteSqlQueryAsDataTable(query);
             dataGridView1.DataSource = usersTable;
+            dataGridView1.Columns["ID"].ReadOnly = true;
             dataGridView1.Columns["Специализация"].Width = 250;
+            dataGridView1.AllowUserToAddRows = true;
         }
         
         private void ViewGroupTable()
@@ -125,6 +128,8 @@ namespace Journal
             DataTable groupTable = WorkWithData.ExecuteSqlQueryAsDataTable(query);
             dataGridView1.DataSource = groupTable;
             dataGridView1.Columns["Specialization"].DisplayIndex = 1;
+            dataGridView1.Columns["ID"].ReadOnly = true;
+            dataGridView1.AllowUserToAddRows = true;
         }
 
         private void ViewTeacherTable()
@@ -137,6 +142,8 @@ namespace Journal
                       WHERE UserRole = 3";
             DataTable teachersTable = WorkWithData.ExecuteSqlQueryAsDataTable(query);
             dataGridView1.DataSource = teachersTable;
+            dataGridView1.Columns["ID"].ReadOnly = true;
+            dataGridView1.AllowUserToAddRows = false;
         }
 
         private void ViewStudentsTable()
@@ -162,6 +169,9 @@ namespace Journal
                       WHERE UserRole = 2";
             DataTable studentsTable = WorkWithData.ExecuteSqlQueryAsDataTable(query);
             dataGridView1.DataSource = studentsTable;
+            dataGridView1.Columns["ID"].ReadOnly = true;
+            dataGridView1.Columns["ID"].DisplayIndex = 0;
+            dataGridView1.AllowUserToAddRows = false;
         }
 
         private void ViewSubjectsTable()
@@ -178,10 +188,14 @@ namespace Journal
             dataGridView1.Columns.Add(new DataGridViewComboBoxColumn() { Name = "group", DataPropertyName = "GroupId", HeaderText = "Группа", DataSource = groups, ValueMember = "Id", DisplayMember = "GroupName" });
             dataGridView1.Columns.Add(new DataGridViewComboBoxColumn() { Name = "teacher", DataPropertyName = "Teacher", HeaderText = "Преподаватель", DataSource = teachers, ValueMember = "Id", DisplayMember = "TeacherName" });
 
-            DataTable subjectsTable = WorkWithData.ExecuteSqlQueryAsDataTable(@"SELECT id, SpecializationId, GroupId, SubjectName, Hours, Semester, Description, Teacher, IsDelete FROM Subjects");
+            query = @"SELECT id, SpecializationId, GroupId, SubjectName, Hours, Semester, Description, Teacher, IsDelete FROM Subjects";
+            DataTable subjectsTable = WorkWithData.ExecuteSqlQueryAsDataTable(query);
             dataGridView1.DataSource = subjectsTable;
+            dataGridView1.Columns["ID"].ReadOnly = true;
+            dataGridView1.Columns["ID"].DisplayIndex = 0;
             dataGridView1.Columns["group"].DisplayIndex = 1;
             dataGridView1.Columns["teacher"].DisplayIndex = 6;
+            dataGridView1.AllowUserToAddRows = true;
         }
 
         private void bWriteToBase_Click(object sender, EventArgs e)
@@ -197,9 +211,16 @@ namespace Journal
             commandBuilder = new SQLiteCommandBuilder(adapter);
             string comd = commandBuilder.GetUpdateCommand().CommandText;
 
-            adapter.SelectCommand = commandBuilder.GetUpdateCommand();
-            adapter.Update(dataGridView1.DataSource as DataTable);
-            UpdateDataTable();
+            try
+            {
+                adapter.SelectCommand = commandBuilder.GetUpdateCommand();
+                adapter.Update(dataGridView1.DataSource as DataTable);
+                UpdateDataTable();
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
     }
 }

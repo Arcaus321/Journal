@@ -32,8 +32,9 @@ namespace Journal
                 return;
             }
 
-            SQLiteConnection connection = new SQLiteConnection(@"Data Source = C:\Users\l.m\source\repos\Journal\database.db");
-            string sqlQuery = $"INSERT INTO Users (FirstName, LastName, MiddleName, Login, Password, UserRole, UserGroup, Email) VALUES ('{tbSecondName.Text}', '{tbFirstName.Text}', '{tbThirdName.Text}', '{tbLogin.Text}', '{tbPassword.Text}', {(cbGroup.SelectedIndex == 0 ? 1 : 2 )}, {cbGroup.SelectedIndex}, '{tbEmail.Text}');";
+            SQLiteConnection connection = new SQLiteConnection(@"Data Source = database.db");
+            string sqlQuery = $@"INSERT INTO Users (FirstName, LastName, MiddleName, Login, Password, UserRole, UserGroup, Email) 
+                                 VALUES ('{tbSecondName.Text}', '{tbFirstName.Text}', '{tbThirdName.Text}', '{tbLogin.Text}', '{WorkWithData.GetSha256(tbPassword.Text)}', 1, {(cbGroup.SelectedIndex == 0 ? "null" : cbGroup.SelectedValue)}, '{tbEmail.Text}');";
             connection.Open();
             SQLiteCommand command = new SQLiteCommand(sqlQuery, connection);
             command.ExecuteNonQuery();
@@ -45,10 +46,12 @@ namespace Journal
 
         private void RegistrationUC_Load(object sender, EventArgs e)
         {
-            string sqlQuery = $"SELECT GroupName FROM Groups";
-            List<string> list = new List<string> { "(Нет)" };
-            list.AddRange(WorkWithData.ExecuteSqlQueryAsEnumerable(sqlQuery).Select(x => x.Field<string>("GroupName")).ToList());
+            string sqlQuery = $"SELECT id, GroupName FROM Groups WHERE isDelete = 0";
+            var list = WorkWithData.ExecuteSqlQueryAsEnumerable(sqlQuery).Select(x => new { Id = x.Field<Int64>("id"), Name = x.Field<string>("GroupName") }).ToList();
+            list.Insert(0, new { Id = 0L, Name = "(Нет)" });
             cbGroup.DataSource = list;
+            cbGroup.DisplayMember = "Name";
+            cbGroup.ValueMember = "Id";
         }
     }
 }

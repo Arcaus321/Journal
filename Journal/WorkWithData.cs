@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
+using System.Security.Cryptography;
 
 namespace Journal
 {
@@ -21,46 +22,24 @@ namespace Journal
             adapter.Fill(table);
             return table;
         }
-        
-        static public DataTable ExecuteSqlQueryAsDataTable1(string sqlQuery)
+        static public EnumerableRowCollection<DataRow> ExecuteSqlQueryAsEnumerable(string sqlQuery)
         {
-            DataTable dataTable = new DataTable();
+            return ExecuteSqlQueryAsDataTable(sqlQuery).AsEnumerable();
+        }
 
-            using (SQLiteConnection db = new SQLiteConnection($"Data Source = {Environment.CurrentDirectory}\\database.db"))
+        static public string GetSha256(string str)
+        {
+            using (SHA256 sha256 = SHA256.Create())
             {
-                SQLiteCommand selectCommand = new SQLiteCommand(sqlQuery, db);
-                try
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(str));
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
                 {
-                    db.Open();
-                    SQLiteDataReader reader = selectCommand.ExecuteReader();
-
-                    if (reader.HasRows)
-                        for (int i = 0; i < reader.FieldCount; i++)
-                            dataTable.Columns.Add(new DataColumn(reader.GetName(i)));
-
-                    int j = 0;
-                    while (reader.Read())
-                    {
-                        DataRow row = dataTable.NewRow();
-                        dataTable.Rows.Add(row);
-
-                        for (int i = 0; i < reader.FieldCount; i++)
-                            dataTable.Rows[j][i] = (reader.GetValue(i));
-
-                        j++;
-                    }
-
-                    db.Close();
+                    builder.Append(bytes[i].ToString("x2"));
                 }
-                catch (Exception e)
-                {
-                    db.Close();
-                    MessageBox.Show(e.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return null;
-                }
-                return dataTable;
+                return builder.ToString();
             }
-
         }
 
         static public bool CheckDataCorrectnes(RegistrationUC uC)
@@ -111,9 +90,6 @@ namespace Journal
             return true;
         }
 
-        static public EnumerableRowCollection<DataRow> ExecuteSqlQueryAsEnumerable(string sqlQuery)
-        {
-            return ExecuteSqlQueryAsDataTable(sqlQuery).AsEnumerable();
-        }
+       
     }
 }

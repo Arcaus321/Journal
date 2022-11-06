@@ -25,7 +25,7 @@ namespace Journal
 
         private void bLogIn_Click(object sender, EventArgs e)
         {
-            string query = $"SELECT id, login, UserRole FROM Users WHERE(Login = '{tbLogin.Text}' OR Login = '{tbLogin.Text}') AND Password = '{tbPasswd.Text}' AND isDelete = 0";
+            string query = $"SELECT id, login, UserRole FROM Users WHERE(Login = '{tbLogin.Text}' OR Login = '{tbLogin.Text}') AND Password = '{WorkWithData.GetSha256(tbPasswd.Text)}' AND isDelete = 0";
             var userData = WorkWithData.ExecuteSqlQueryAsEnumerable(query);
             if(userData.Count() == 0)
             {

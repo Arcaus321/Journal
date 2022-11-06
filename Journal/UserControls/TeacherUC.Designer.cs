@@ -33,40 +33,48 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cbGroup = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.bShowMarks = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.cbSemester = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cbSubject = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.labelTeacherName = new System.Windows.Forms.Label();
             this.labelGroupInfo = new System.Windows.Forms.Label();
+            this.labelTeacherName = new System.Windows.Forms.Label();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 172);
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(736, 469);
+            this.dataGridView1.Size = new System.Drawing.Size(739, 469);
             this.dataGridView1.TabIndex = 0;
             // 
             // dataGridView2
             // 
-            this.dataGridView2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(745, 172);
+            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView2.Location = new System.Drawing.Point(0, 0);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(345, 469);
+            this.dataGridView2.Size = new System.Drawing.Size(344, 469);
             this.dataGridView2.TabIndex = 1;
+            this.dataGridView2.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellValueChanged);
+            this.dataGridView2.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView2_UserAddedRow);
+            this.dataGridView2.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridView2_UserDeletingRow);
             // 
             // label1
             // 
@@ -84,11 +92,13 @@
             this.cbGroup.Name = "cbGroup";
             this.cbGroup.Size = new System.Drawing.Size(146, 21);
             this.cbGroup.TabIndex = 1;
+            this.cbGroup.SelectionChangeCommitted += new System.EventHandler(this.cbGroup_SelectionChangeCommitted);
             // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.bShowMarks);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.cbSemester);
             this.panel1.Controls.Add(this.label3);
@@ -101,14 +111,25 @@
             this.panel1.Size = new System.Drawing.Size(172, 163);
             this.panel1.TabIndex = 2;
             // 
+            // bShowMarks
+            // 
+            this.bShowMarks.Location = new System.Drawing.Point(13, 130);
+            this.bShowMarks.Name = "bShowMarks";
+            this.bShowMarks.Size = new System.Drawing.Size(63, 23);
+            this.bShowMarks.TabIndex = 7;
+            this.bShowMarks.Text = "Оценки";
+            this.bShowMarks.UseVisualStyleBackColor = true;
+            this.bShowMarks.Click += new System.EventHandler(this.bShowMarks_Click);
+            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(48, 130);
+            this.button1.Location = new System.Drawing.Point(94, 130);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(65, 23);
             this.button1.TabIndex = 6;
             this.button1.Text = "Сохранить";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // cbSemester
             // 
@@ -134,6 +155,7 @@
             this.cbSubject.Name = "cbSubject";
             this.cbSubject.Size = new System.Drawing.Size(146, 21);
             this.cbSubject.TabIndex = 3;
+            this.cbSubject.SelectionChangeCommitted += new System.EventHandler(this.cbSubject_SelectionChangeCommitted);
             // 
             // label2
             // 
@@ -161,14 +183,6 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(909, 162);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
-            // labelTeacherName
-            // 
-            this.labelTeacherName.AutoSize = true;
-            this.labelTeacherName.Location = new System.Drawing.Point(6, 3);
-            this.labelTeacherName.Name = "labelTeacherName";
-            this.labelTeacherName.Size = new System.Drawing.Size(0, 13);
-            this.labelTeacherName.TabIndex = 4;
-            // 
             // labelGroupInfo
             // 
             this.labelGroupInfo.AutoSize = true;
@@ -177,14 +191,40 @@
             this.labelGroupInfo.Size = new System.Drawing.Size(0, 13);
             this.labelGroupInfo.TabIndex = 5;
             // 
+            // labelTeacherName
+            // 
+            this.labelTeacherName.AutoSize = true;
+            this.labelTeacherName.Location = new System.Drawing.Point(6, 3);
+            this.labelTeacherName.Name = "labelTeacherName";
+            this.labelTeacherName.Size = new System.Drawing.Size(0, 13);
+            this.labelTeacherName.TabIndex = 4;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Location = new System.Drawing.Point(3, 172);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.dataGridView1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.dataGridView2);
+            this.splitContainer1.Size = new System.Drawing.Size(1087, 469);
+            this.splitContainer1.SplitterDistance = 739;
+            this.splitContainer1.TabIndex = 4;
+            // 
             // TeacherUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.dataGridView2);
-            this.Controls.Add(this.dataGridView1);
             this.Name = "TeacherUC";
             this.Size = new System.Drawing.Size(1093, 644);
             this.Load += new System.EventHandler(this.TeacherUC_Load);
@@ -194,6 +234,10 @@
             this.panel1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -213,5 +257,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label labelGroupInfo;
         private System.Windows.Forms.Label labelTeacherName;
+        private System.Windows.Forms.Button bShowMarks;
+        private System.Windows.Forms.SplitContainer splitContainer1;
     }
 }
