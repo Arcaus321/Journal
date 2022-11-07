@@ -22,11 +22,10 @@ namespace Journal
         private void bShowMarks_Click(object sender, EventArgs e)
         {
             GetTeacherInfo();
-            var subjectId = cbSubject.SelectedValue;
-            var semester = cbSemester.SelectedValue;
+            var semester = cbSemester.Text;
             string query = $@"SELECT mark as Оценка, data as Дата, m.description as Описание FROM Marks m LEFT JOIN
                               Subjects s on s.id = m.subject 
-                              WHERE student = {User.Id} AND subject = {subjectId} AND s.Semester = {semester} AND m.markType = 1 AND m.isDelete = 0 AND s.isDelete = 0";
+                              WHERE student = {User.Id} AND subject = (SELECT id FROM Subjects WHERE SubjectName = '{cbSubject.Text}' AND Semester = {cbSemester.Text} AND GroupId = {User.GroupId} AND isDelete = 0) AND s.Semester = {semester} AND m.markType = 1 AND m.isDelete = 0 AND s.isDelete = 0";
             dataGridView1.DataSource = WorkWithData.ExecuteSqlQueryAsDataTable(query);
         }
 
@@ -37,12 +36,9 @@ namespace Journal
             labelStudentInfo.Text += User.Group + "\r";
 
             cbSubject.DataSource = User.GetSubjects();
-            cbSubject.DisplayMember = "SubjectName";
-            cbSubject.ValueMember = "id";
-
+            cbSubject.DisplayMember = "subjectName";
             cbSemester.DataSource = User.GetSemesters();
             cbSemester.DisplayMember = "Semester";
-            cbSemester.ValueMember = "Semester";
         }
 
         private void bCreditBook_Click(object sender, EventArgs e)
@@ -62,7 +58,7 @@ namespace Journal
         {
             var query = $@"SELECT (u.FirstName || ' ' || u.LastName || ' ' || u.MiddleName) as Name, s.SubjectName, s.Hours from Subjects s LEFT JOIN
                            Users u on u.id = s.teacher
-                           WHERE s.Id = {cbSubject.SelectedValue} AND s.Semester = {cbSemester.SelectedValue} AND s.IsDelete = 0 AND u.isDelete = 0";
+                           WHERE s.Id = (SELECT id FROM Subjects WHERE SubjectName = '{cbSubject.Text}' AND Semester = {cbSemester.Text} AND GroupId = {User.GroupId} AND isDelete = 0) AND s.Semester = {cbSemester.Text} AND s.IsDelete = 0 AND u.isDelete = 0";
             var teacherInfo = WorkWithData.ExecuteSqlQueryAsEnumerable(query).Select(x => new { name = x.Field<string>("Name"), subjectName = x.Field<string>("SubjectName"), hours = x.Field<Int64>("Hours") }).ToList();
             if(teacherInfo.Count > 0)
             {

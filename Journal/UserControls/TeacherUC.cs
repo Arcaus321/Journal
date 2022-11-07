@@ -149,7 +149,6 @@ namespace Journal
             dataGridView1.Columns["Ф.И.О."].DisplayIndex = 1;
         }
 
-
         public void WriteToTable()
         {
             //query = "SELECT student, subject, data FROM Marks";
@@ -201,7 +200,14 @@ namespace Journal
             query = query.Remove(query.Length - 1, 1);
             query += ";";
             command = new SQLiteCommand(query, connection);
-            command.ExecuteNonQuery();
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch(Exception)
+            {
+                MessageBox.Show("Некоректные данные");
+            }
             connection.Close();
         }
         private void button1_Click(object sender, EventArgs e)

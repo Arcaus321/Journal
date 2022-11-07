@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -29,7 +30,8 @@ namespace Journal
             form.FormBorderStyle = FormBorderStyle.Sizable;
             form.MaximizeBox = true;
             form.Controls.Clear();
-            form.Controls.Add(new AdminUC { Dock = DockStyle.Fill }); 
+            form.Controls.Add(new AdminUC { Dock = DockStyle.Fill });
+            form.Size = new Size(1200, 800) ;
         }
         
         public static void OpenTeacherUC(Form form, int userId)
@@ -38,7 +40,8 @@ namespace Journal
             form.FormBorderStyle = FormBorderStyle.Sizable;
             form.MaximizeBox = true;
             form.Controls.Clear();
-            form.Controls.Add(new TeacherUC(userId) { Dock = DockStyle.Fill }); 
+            form.Controls.Add(new TeacherUC(userId) { Dock = DockStyle.Fill });
+            form.Size = new Size(1200, 800);
         }
         
         public static void OpenStudentUC(Form form, int userId)
@@ -47,7 +50,8 @@ namespace Journal
             form.FormBorderStyle = FormBorderStyle.Sizable;
             form.MaximizeBox = true;
             form.Controls.Clear();
-            form.Controls.Add(new StudentUC(userId) { Dock = DockStyle.Fill }); 
+            form.Controls.Add(new StudentUC(userId) { Dock = DockStyle.Fill });
+            form.Size = new Size(1200, 800);
         }
     }
 }
