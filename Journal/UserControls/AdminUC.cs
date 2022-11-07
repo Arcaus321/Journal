@@ -59,6 +59,7 @@ namespace Journal
         private void ViewAccountTable()
         {
             dataGridView1.Columns.Clear();
+            dataGridView1.DataSource = null;
             panel1.Controls.Clear();
             panel1.Controls.Add(new AccountFilter() { Dock = DockStyle.Fill });
 
@@ -96,6 +97,7 @@ namespace Journal
         private void ViewSpecializationTable()
         {
             dataGridView1.Columns.Clear();
+            dataGridView1.DataSource = null;
             panel1.Controls.Clear();
 
             query = @"SELECT id, SpecializationName as Специализация, SemestersCount as 'Количество семестров', isDelete as Удален
@@ -110,9 +112,10 @@ namespace Journal
         private void ViewGroupTable()
         {
             dataGridView1.Columns.Clear();
+            dataGridView1.DataSource = null;
             panel1.Controls.Clear();
-
-            DataTable specializations = WorkWithData.ExecuteSqlQueryAsDataTable("SELECT id, SpecializationName FROM Specialization WHERE isDelete = 0 UNION SELECT id, ('*' || SpecializationName || '*') FROM Specialization WHERE isDelete = 1");
+            query = "SELECT id, SpecializationName FROM Specialization WHERE isDelete = 0 UNION SELECT id, ('*' || SpecializationName || '*') FROM Specialization WHERE isDelete = 1";
+            var specializations = WorkWithData.ExecuteSqlQueryAsEnumerable(query).Select(x => new {Id = x.Field<Int64>("id"), SpecializationName = x.Field<string>("SpecializationName") }).ToList();
 
             dataGridView1.Columns.Add(new DataGridViewComboBoxColumn() {
                 Name = "Specialization",
@@ -135,6 +138,7 @@ namespace Journal
         private void ViewTeacherTable()
         {
             dataGridView1.Columns.Clear();
+            dataGridView1.DataSource = null;
             panel1.Controls.Clear();
 
             query = @"SELECT id, FirstName as Фамилия, LastName as Имя, MiddleName as Отчество, isDelete as Удалён
@@ -149,6 +153,7 @@ namespace Journal
         private void ViewStudentsTable()
         {
             dataGridView1.Columns.Clear();
+            dataGridView1.DataSource = null;
             panel1.Controls.Clear();
             panel1.Controls.Add(new StudentsFilter() { Dock = DockStyle.Fill });
 
@@ -177,6 +182,7 @@ namespace Journal
         private void ViewSubjectsTable()
         {
             dataGridView1.Columns.Clear();
+            dataGridView1.DataSource = null;
             panel1.Controls.Clear();
             panel1.Controls.Add(new SubjectsFilter() { Dock = DockStyle.Fill });
 
