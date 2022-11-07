@@ -37,6 +37,10 @@ namespace Journal
             string query = $@"SELECT id as ID, FirstName as Фамилия, LastName as Имя, MiddleName as Отчество, Login as Логин, Password as Пароль, UserRole, UserGroup, Email as Почта, isDelete as Удалён
                              FROM Users
                              WHERE UserGroup = {cbGroup.SelectedIndex}";
+            if(cbAccessLevel.SelectedIndex != 0)
+            {
+                query += $" AND UserRole = {cbAccessLevel.SelectedIndex}";
+            }
             DataTable usersTable = WorkWithData.ExecuteSqlQueryAsDataTable(query);
 
             grid.DataSource = usersTable;
@@ -49,6 +53,11 @@ namespace Journal
             string query = $@"SELECT id as ID, FirstName as Фамилия, LastName as Имя, MiddleName as Отчество, Login as Логин, Password as Пароль, UserRole, UserGroup, Email as Почта, isDelete as Удалён
                              FROM Users
                              WHERE UserRole = {cbAccessLevel.SelectedIndex}";
+
+            if (cbGroup.SelectedIndex != 0)
+            {
+                query += $" AND UserGroup = {cbGroup.SelectedIndex}";
+            }
             DataTable usersTable = WorkWithData.ExecuteSqlQueryAsDataTable(query);
 
             grid.DataSource = usersTable;

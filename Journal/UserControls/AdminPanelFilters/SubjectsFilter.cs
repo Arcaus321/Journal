@@ -25,6 +25,10 @@ namespace Journal
             string query = $@"SELECT id, SpecializationId, GroupId, SubjectName, Hours, Semester, Description, Teacher, IsDelete 
                               FROM Subjects
                               WHERE Semester = '{cbSemester.SelectedIndex}'";
+            if (cbSubject.SelectedIndex != 0)
+            {
+                query += $" AND SubjectName = '{cbSubject.SelectedValue}'";
+            }
             DataTable usersTable = WorkWithData.ExecuteSqlQueryAsDataTable(query);
 
             grid.DataSource = usersTable;
@@ -38,6 +42,10 @@ namespace Journal
             string query = $@"SELECT id, SpecializationId, GroupId, SubjectName, Hours, Semester, Description, Teacher, IsDelete 
                               FROM Subjects
                               WHERE SubjectName = '{cbSubject.SelectedValue}'";
+            if (cbSemester.SelectedIndex != 0)
+            {
+                query += $" AND Semester = {cbSemester.SelectedIndex}";
+            }
             DataTable usersTable = WorkWithData.ExecuteSqlQueryAsDataTable(query);
 
             grid.DataSource = usersTable;

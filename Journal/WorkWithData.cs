@@ -22,6 +22,11 @@ namespace Journal
             adapter.Fill(table);
             return table;
         }
+
+        static public string GetBase64(string str)
+        {
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes(str));
+        }
         static public EnumerableRowCollection<DataRow> ExecuteSqlQueryAsEnumerable(string sqlQuery)
         {
             return ExecuteSqlQueryAsDataTable(sqlQuery).AsEnumerable();

@@ -90,7 +90,7 @@ namespace Journal
             dataGridView1.Columns["ID"].ReadOnly = true;
             dataGridView1.Columns["UserRole"].DisplayIndex = 7;
             dataGridView1.Columns["UserGroup"].DisplayIndex = 4;
-            dataGridView1.AllowUserToAddRows = true;
+            dataGridView1.AllowUserToAddRows = false;
         }
 
         private void ViewSpecializationTable()
