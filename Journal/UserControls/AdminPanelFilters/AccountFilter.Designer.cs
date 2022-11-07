@@ -68,6 +68,7 @@
             // 
             this.cbGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cbGroup.FormattingEnabled = true;
+            this.cbGroup.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.cbGroup.Location = new System.Drawing.Point(5, 19);
             this.cbGroup.Name = "cbGroup";
             this.cbGroup.Size = new System.Drawing.Size(121, 21);

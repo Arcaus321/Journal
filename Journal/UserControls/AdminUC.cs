@@ -62,8 +62,8 @@ namespace Journal
             panel1.Controls.Clear();
             panel1.Controls.Add(new AccountFilter() { Dock = DockStyle.Fill });
 
-            DataTable userRoles = WorkWithData.ExecuteSqlQueryAsDataTable("SELECT Id, RoleName FROM Roles");
-            DataTable userGroups = WorkWithData.ExecuteSqlQueryAsDataTable("SELECT Id, GroupName FROM Groups");
+            DataTable userRoles = WorkWithData.ExecuteSqlQueryAsDataTable("SELECT Id, RoleName FROM Roles ");
+            DataTable userGroups = WorkWithData.ExecuteSqlQueryAsDataTable("SELECT Id, GroupName FROM Groups WHERE isDelete = 0 UNION SELECT Id, ('*' || GroupName || '*') FROM Groups WHERE isDelete = 1");
 
             dataGridView1.Columns.Add(new DataGridViewComboBoxColumn() { 
                 Name = "UserRole", 
@@ -90,7 +90,7 @@ namespace Journal
             dataGridView1.Columns["ID"].ReadOnly = true;
             dataGridView1.Columns["UserRole"].DisplayIndex = 7;
             dataGridView1.Columns["UserGroup"].DisplayIndex = 4;
-            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToAddRows = true;
         }
 
         private void ViewSpecializationTable()
@@ -112,18 +112,18 @@ namespace Journal
             dataGridView1.Columns.Clear();
             panel1.Controls.Clear();
 
-            DataTable specializations = WorkWithData.ExecuteSqlQueryAsDataTable("SELECT id, SpecializationName FROM Specialization");
+            DataTable specializations = WorkWithData.ExecuteSqlQueryAsDataTable("SELECT id, SpecializationName FROM Specialization WHERE isDelete = 0 UNION SELECT id, ('*' || SpecializationName || '*') FROM Specialization WHERE isDelete = 1");
 
             dataGridView1.Columns.Add(new DataGridViewComboBoxColumn() {
                 Name = "Specialization",
-                DataPropertyName = "SpecializationId",
+                DataPropertyName = "Специализация",
                 HeaderText = "Специализация", 
                 DataSource = specializations,
                 ValueMember="Id",
                 DisplayMember= "SpecializationName"
             });
 
-            query = @"SELECT id, SpecializationId, GroupName, GroupCode, StartStuding, EndStuding 
+            query = @"SELECT id, SpecializationId as Специализация, GroupName as Группа, GroupCode as Код, StartStuding as 'Начало обучения', EndStuding as 'Конец обучения', isDelete as Удалён
                       FROM Groups";
             DataTable groupTable = WorkWithData.ExecuteSqlQueryAsDataTable(query);
             dataGridView1.DataSource = groupTable;
@@ -137,7 +137,7 @@ namespace Journal
             dataGridView1.Columns.Clear();
             panel1.Controls.Clear();
 
-            query = @"SELECT id, FirstName, LastName, MiddleName, isDelete 
+            query = @"SELECT id, FirstName as Фамилия, LastName as Имя, MiddleName as Отчество, isDelete as Удалён
                       FROM Users
                       WHERE UserRole = 3";
             DataTable teachersTable = WorkWithData.ExecuteSqlQueryAsDataTable(query);
@@ -152,19 +152,19 @@ namespace Journal
             panel1.Controls.Clear();
             panel1.Controls.Add(new StudentsFilter() { Dock = DockStyle.Fill });
 
-            DataTable groups = WorkWithData.ExecuteSqlQueryAsDataTable("SELECT id, (GroupName || ' (' || GroupCode || ')') as GroupName FROM Groups");
+            DataTable groups = WorkWithData.ExecuteSqlQueryAsDataTable("SELECT id, (GroupName || ' (' || GroupCode || ')') as GroupName FROM Groups WHERE isDelete = 0 UNION SELECT id, ('*' || GroupName || ' (' || GroupCode || ')*') FROM Groups WHERE isDelete = 1");
 
             dataGridView1.Columns.Add(new DataGridViewComboBoxColumn()
             {
                 Name = "Group",
-                DataPropertyName = "UserGroup",
+                DataPropertyName = "Группа",
                 HeaderText = "Группа",
                 DataSource = groups,
                 ValueMember = "Id",
                 DisplayMember = "GroupName"
             });
 
-            query = @"SELECT id, UserGroup, FirstName, LastName, MiddleName, Users.isDelete
+            query = @"SELECT id, UserGroup as Группа, FirstName as Фамилия, LastName as Имя, MiddleName as Отчество, Users.isDelete as Удалена
                       FROM Users
                       WHERE UserRole = 2";
             DataTable studentsTable = WorkWithData.ExecuteSqlQueryAsDataTable(query);
@@ -180,15 +180,15 @@ namespace Journal
             panel1.Controls.Clear();
             panel1.Controls.Add(new SubjectsFilter() { Dock = DockStyle.Fill });
 
-            DataTable groups = WorkWithData.ExecuteSqlQueryAsDataTable("SELECT id, GroupName FROM Groups");
-            DataTable specializations = WorkWithData.ExecuteSqlQueryAsDataTable("SELECT id, SpecializationName FROM Specialization");
-            DataTable teachers = WorkWithData.ExecuteSqlQueryAsDataTable("SELECT id, (FirstName || ' ' || LastName || ' ' || MiddleName) AS TeacherName FROM Users WHERE UserRole = 3");
+            DataTable groups = WorkWithData.ExecuteSqlQueryAsDataTable("SELECT id, (GroupName || ' (' || GroupCode || ')') as GroupName FROM Groups WHERE isDelete = 0 UNION SELECT id, ('*' || GroupName || ' (' || GroupCode || ')*') FROM Groups WHERE isDelete = 1");
+            DataTable specializations = WorkWithData.ExecuteSqlQueryAsDataTable("SELECT id, SpecializationName FROM Specialization WHERE isDelete = 0 UNION SELECT id, ('*' || SpecializationName || '*') FROM Specialization WHERE isDelete = 1");
+            DataTable teachers = WorkWithData.ExecuteSqlQueryAsDataTable("SELECT id, (FirstName || ' ' || LastName || ' ' || MiddleName) AS TeacherName FROM Users WHERE UserRole = 3 AND isDelete = 0 UNION SELECT id, ('*' ||FirstName || ' ' || LastName || ' ' || MiddleName || '*') AS TeacherName FROM Users WHERE UserRole = 3 AND isDelete = 1");
 
-            dataGridView1.Columns.Add(new DataGridViewComboBoxColumn() { Name = "specializations", DataPropertyName = "SpecializationId", HeaderText = "Специальность", DataSource = specializations, ValueMember = "Id", DisplayMember = "SpecializationName"});
-            dataGridView1.Columns.Add(new DataGridViewComboBoxColumn() { Name = "group", DataPropertyName = "GroupId", HeaderText = "Группа", DataSource = groups, ValueMember = "Id", DisplayMember = "GroupName" });
-            dataGridView1.Columns.Add(new DataGridViewComboBoxColumn() { Name = "teacher", DataPropertyName = "Teacher", HeaderText = "Преподаватель", DataSource = teachers, ValueMember = "Id", DisplayMember = "TeacherName" });
+            dataGridView1.Columns.Add(new DataGridViewComboBoxColumn() { Name = "specializations", DataPropertyName = "Специализация", HeaderText = "Специальность", DataSource = specializations, ValueMember = "Id", DisplayMember = "SpecializationName"});
+            dataGridView1.Columns.Add(new DataGridViewComboBoxColumn() { Name = "group", DataPropertyName = "Группа", HeaderText = "Группа", DataSource = groups, ValueMember = "Id", DisplayMember = "GroupName" });
+            dataGridView1.Columns.Add(new DataGridViewComboBoxColumn() { Name = "teacher", DataPropertyName = "Преподаватель", HeaderText = "Преподаватель", DataSource = teachers, ValueMember = "Id", DisplayMember = "TeacherName" });
 
-            query = @"SELECT id, SpecializationId, GroupId, SubjectName, Hours, Semester, Description, Teacher, IsDelete FROM Subjects";
+            query = @"SELECT id, SpecializationId as Специализация, GroupId as Группа, SubjectName as Предмет, Hours as Часы, Semester as Семестр, Description as Описание, Teacher as Преподаватель, IsDelete as Удалена FROM Subjects";
             DataTable subjectsTable = WorkWithData.ExecuteSqlQueryAsDataTable(query);
             dataGridView1.DataSource = subjectsTable;
             dataGridView1.Columns["ID"].ReadOnly = true;
