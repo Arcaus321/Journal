@@ -15,7 +15,11 @@ namespace Journal
     public partial class TeacherUC : UserControl
     {
         private int TeacherId;
+        private float Group;
+        private string Subject;
+        private float Semester;
         string query;
+
 
         List<string> marks = new List<string> { "","5", "4", "3", "2", "Зачёт", "Н"};
         public TeacherUC(int id)
@@ -36,16 +40,20 @@ namespace Journal
                              g.isDelete = 0 AND 
                              Subjects.isDelete = 0";
             var groups = WorkWithData.ExecuteSqlQueryAsEnumerable(query).Select(x => new { Id = x.Field<Int64>("GroupId"), GroupName = x.Field<string>("GroupName")}).ToList();
+            
+            if(groups.Count == 0 )
+            {
+                MessageBox.Show("Отсутствуют прикреплённые группы");
+                return;
+            }
             cbGroup.DataSource = groups;
             cbGroup.DisplayMember = "GroupName";
             cbGroup.ValueMember = "Id";
-
             UpdateFilter();
         }
 
         private void UpdateFilter()
         {
-
             query = $@"Select DISTINCT SubjectName FROM Subjects
                        WHERE GroupId = {cbGroup.SelectedValue} AND Teacher = {TeacherId} AND isDelete = 0";
             var subjects = WorkWithData.ExecuteSqlQueryAsEnumerable(query).Select(x => x.Field<string>("SubjectName") ).ToList();
@@ -61,11 +69,21 @@ namespace Journal
 
         private void cbGroup_SelectionChangeCommitted(object sender, EventArgs e)
         {
+            if (cbGroup.Items.Count < 1)
+            {
+                MessageBox.Show("Отсутствуют прикреплённые группы");
+                return;
+            }
             UpdateFilter();
         }
 
         private void cbSubject_SelectionChangeCommitted(object sender, EventArgs e)
         {
+            if(cbGroup.Items.Count < 1)
+            {
+                MessageBox.Show("Отсутствуют прикреплённые группы");
+                return;
+            }
             query = $@"Select Semester FROM Subjects
                        WHERE GroupId = {cbGroup.SelectedValue} AND Teacher = {TeacherId} AND SubjectName = '{cbSubject.Text}' AND isDelete = 0";
             var semesters = WorkWithData.ExecuteSqlQueryAsEnumerable(query).Select(x => x.Field<Int64>("Semester")).ToList();
@@ -158,16 +176,16 @@ namespace Journal
             }
             query = $@"SELECT subject, student, mark, data FROM Marks 
                        WHERE subject = (SELECT id FROM Subjects 
-                                        WHERE GroupId = {cbGroup.SelectedValue} AND 
-                                              Semester = {cbSemester.SelectedValue} AND 
-                                              SubjectName = '{cbSubject.Text}' AND 
+                                        WHERE GroupId = {Group} AND 
+                                              Semester = {Semester} AND 
+                                              SubjectName = '{Subject}' AND 
                                               Teacher = {TeacherId} AND 
                                               isDelete = 0) AND 
                              isDelete = 0";
             var mar = WorkWithData.ExecuteSqlQueryAsEnumerable(query).Select(x => new { student = x.Field<Int64>("student"), subject = x.Field<Int64>("subject"), date = x.Field<string>("data") }).ToList();
             SQLiteConnection connection = new SQLiteConnection("Data Source = database.db");
             connection.Open();
-            query = $"SELECT id FROM Subjects WHERE GroupId = {cbGroup.SelectedValue} AND SubjectName = '{cbSubject.Text}' AND Semester = {cbSemester.SelectedValue} AND isDelete = 0";
+            query = $"SELECT id FROM Subjects WHERE GroupId = {Group} AND SubjectName = '{Subject}' AND Semester = {Semester} AND isDelete = 0";
             SQLiteCommand command = new SQLiteCommand(query, connection);
             var subjectId = command.ExecuteScalar();
             query = $@"REPLACE INTO Marks (mark, data, student, subject, description, markType, isDelete) VALUES ";
@@ -217,21 +235,31 @@ namespace Journal
 
         private void bShowMarks_Click(object sender, EventArgs e)
         {
+            if (cbGroup.Items.Count < 1)
+            {
+                MessageBox.Show("Отсутствуют прикреплённые группы");
+                return;
+            }
+
+            Group = (Int64)cbGroup.SelectedValue;
+            Subject = cbSubject.Text;
+            Semester = (Int64)cbSemester.SelectedValue;
             labelGroupInfo.Text = "";
             query = $"select SpecializationName from Specialization WHERE id = (select SpecializationId from groups WHERE groups.id = {cbGroup.SelectedValue}  AND isDelete = 0) AND isDelete = 0";
             SQLiteConnection connection = new SQLiteConnection("Data Source = database.db");
             connection.Open();
             SQLiteCommand command = new SQLiteCommand(query, connection);
             labelGroupInfo.Text += command.ExecuteScalar() + "\r";
-            labelGroupInfo.Text += "Группа "+ cbGroup.Text + "\r";
+            labelGroupInfo.Text += "Группа " + cbGroup.Text + "\r";
             query = $@"SELECT Hours, Description FROM Subjects
-                       WHERE GroupId = {cbGroup.SelectedValue} AND SubjectName = '{cbSubject.Text}' AND Semester = {cbSemester.SelectedValue} AND isDelete = 0";
-            var result = WorkWithData.ExecuteSqlQueryAsEnumerable(query).Select(x => new {Hours = x.Field<Int64>("Hours"), Description = x.Field<string>("Description")}).ToList();
+                   WHERE GroupId = {cbGroup.SelectedValue} AND SubjectName = '{cbSubject.Text}' AND Semester = {cbSemester.SelectedValue} AND isDelete = 0";
+            var result = WorkWithData.ExecuteSqlQueryAsEnumerable(query).Select(x => new { Hours = x.Field<Int64>("Hours"), Description = x.Field<string>("Description") }).ToList();
             labelGroupInfo.Text += cbSemester.SelectedValue + " семестр\r";
             labelGroupInfo.Text += cbSubject.Text + " " + result[0].Hours + " часов " + result[0].Description;
             connection.Close();
             FillRightTable();
             FillLeftTable();
+            
         }
 
         private void dataGridView2_UserAddedRow(object sender, DataGridViewRowEventArgs e)
@@ -248,7 +276,7 @@ namespace Journal
                 dataGridView1.Columns.Remove(cells[0].Value as string);
                 SQLiteConnection connection = new SQLiteConnection("Data Source = database.db");
                 connection.Open();
-                query = $"SELECT id FROM Subjects WHERE GroupId = {cbGroup.SelectedValue} AND SubjectName = '{cbSubject.Text}' AND Semester = {cbSemester.SelectedValue}  AND isDelete = 0";
+                query = $"SELECT id FROM Subjects WHERE GroupId = {Group} AND SubjectName = '{Subject}' AND Semester = {Semester}  AND isDelete = 0";
                 SQLiteCommand command = new SQLiteCommand(query, connection);
                 var subjectId = command.ExecuteScalar();
                 query = $@"UPDATE Marks SET isDelete = 1 WHERE data = '{cells[0].Value}' AND Subject = {subjectId}";
